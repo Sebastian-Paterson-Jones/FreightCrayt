@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
     <background android:drawable="@drawable/ic_freight_crayt_background"/>
-    <foreground android:drawable="@mipmap/ic_freight_crayt_foreground"/>
+    <foreground android:drawable="@mipmap/ic_freight_crayt_icon"/>
 </adaptive-icon>

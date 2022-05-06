@@ -24,49 +24,86 @@
         android:id="@+id/editTextTextEmailAddress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginEnd="101dp"
         android:ems="10"
         android:inputType="textEmailAddress"
+        android:minHeight="48dp"
+        android:text="@string/email_username"
         android:textColor="@color/material_dynamic_neutral60"
-        tools:layout_editor_absoluteX="100dp"
-        tools:layout_editor_absoluteY="409dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2" />
 
     <EditText
         android:id="@+id/editTextTextPersonName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="101dp"
         android:ems="10"
         android:inputType="textPersonName"
+        android:minHeight="48dp"
         android:text="@string/first_name"
         android:textColor="@color/material_dynamic_neutral60"
-        tools:layout_editor_absoluteX="100dp"
-        tools:layout_editor_absoluteY="319dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <EditText
         android:id="@+id/editTextTextPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginEnd="101dp"
         android:ems="10"
         android:inputType="textPassword"
+        android:minHeight="48dp"
         android:textColor="@color/material_dynamic_neutral60"
-        tools:layout_editor_absoluteX="100dp"
-        tools:layout_editor_absoluteY="454dp" />
+        android:text="@string/password"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress" />
 
     <EditText
         android:id="@+id/editTextTextPersonName2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginEnd="101dp"
         android:ems="10"
         android:inputType="textPersonName"
+        android:minHeight="48dp"
         android:text="@string/surname"
         android:textColor="@color/material_dynamic_neutral60"
-        tools:layout_editor_absoluteX="100dp"
-        tools:layout_editor_absoluteY="364dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
 
     <Button
         android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="117dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="147dp"
+        android:layout_marginTop="21dp"
+        android:layout_marginEnd="147dp"
+        android:background="@drawable/rounded_button"
         android:text="@string/log_in"
-        tools:layout_editor_absoluteX="158dp"
-        tools:layout_editor_absoluteY="521dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="186dp"
+        android:layout_height="182dp"
+        android:layout_marginStart="112dp"
+        android:layout_marginEnd="113dp"
+        android:contentDescription="@string/app_name"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@mipmap/ic_freight_crayt_icon" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

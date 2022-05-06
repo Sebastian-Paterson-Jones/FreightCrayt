@@ -4,4 +4,6 @@
     <string name="first_name">FIRST NAME</string>
     <string name="surname">SURNAME</string>
     <string name="log_in">LOG IN</string>
+    <string name="email_username">EMAIL/USERNAME</string>
+    <string name="password">PASSWORD</string>
 </resources>
