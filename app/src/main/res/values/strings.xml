@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">FreightCrayt</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="sign_up">SIGN UP</string>
+    <string name="first_name">FIRST NAME</string>
+    <string name="surname">SURNAME</string>
+    <string name="log_in">LOG IN</string>
 </resources>
