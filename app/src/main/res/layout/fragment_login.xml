@@ -35,8 +35,9 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:lineSpacingExtra="8sp"
-            android:text="LOGIN"
-            android:textSize="20sp" />
+            android:text="Login"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/login_textBoxEmail"

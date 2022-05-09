@@ -13,12 +13,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tabBackground="?colorPrimary"
+        app:tabBackground="@color/white"
         app:tabGravity="fill"
-        app:tabIndicatorColor="@color/white"
+        app:tabIndicatorColor="?colorPrimary"
         app:tabIndicatorHeight="4dp"
         app:tabMode="fixed"
-        app:tabTextColor="@color/white">
+        app:tabTextColor="?colorPrimary">
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
