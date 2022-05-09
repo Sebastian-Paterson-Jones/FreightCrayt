@@ -8,15 +8,14 @@
 
     <TextView
         android:id="@+id/textTitleSingUp"
-        android:layout_width="82dp"
-        android:layout_height="34dp"
-        android:fontFamily="serif"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:lineSpacingExtra="8sp"
         android:text="@string/sign_up"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+        app:layout_constraintTop_toBottomOf="@+id/registerImage" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/register_textBoxEmail"
@@ -30,7 +29,8 @@
         app:layout_constraintTop_toBottomOf="@+id/textTitleSingUp"
         app:startIconDrawable="@drawable/ic_baseline_email_24"
         app:startIconContentDescription="Email"
-        app:endIconMode="clear_text">
+        app:endIconMode="clear_text"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -50,7 +50,8 @@
         app:layout_constraintTop_toBottomOf="@+id/register_textBoxPassword"
         app:startIconDrawable="@drawable/ic_baseline_person_24"
         app:startIconContentDescription="First name"
-        app:endIconMode="clear_text">
+        app:endIconMode="clear_text"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -70,7 +71,8 @@
         app:layout_constraintTop_toBottomOf="@+id/register_textBoxEmail"
         app:startIconDrawable="@drawable/ic_baseline_lock_24"
         app:startIconContentDescription="Password"
-        app:endIconMode="password_toggle">
+        app:endIconMode="password_toggle"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -90,7 +92,8 @@
         app:layout_constraintTop_toBottomOf="@+id/register_textBoxName"
         app:startIconDrawable="@drawable/ic_baseline_person_24"
         app:startIconContentDescription="Surname"
-        app:endIconMode="clear_text">
+        app:endIconMode="clear_text"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -110,7 +113,7 @@
         app:layout_constraintTop_toBottomOf="@+id/register_textBoxSurname" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/registerImage"
         android:layout_width="204dp"
         android:layout_height="191dp"
         android:layout_marginTop="32dp"
