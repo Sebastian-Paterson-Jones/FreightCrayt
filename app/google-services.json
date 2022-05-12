@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "286178047496",
+    "project_id": "freightcrayt",
+    "storage_bucket": "freightcrayt.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:286178047496:android:e246c94b0d7b97029d03bd",
+        "android_client_info": {
+          "package_name": "com.example.freightcrayt"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "286178047496-kuo6q321egefh5tg4ao6cjrh9tt8oiva.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBkcIviMl_9Ct0tcLJAoPrmk58wcEGSOTo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "286178047496-kuo6q321egefh5tg4ao6cjrh9tt8oiva.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
