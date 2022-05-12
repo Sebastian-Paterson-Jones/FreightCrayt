@@ -5,7 +5,7 @@
       <map>
         <entry key="app/src/main/res/drawable/circle_image.xml" value="0.1695" />
         <entry key="app/src/main/res/drawable/rounded_button.xml" value="0.1695" />
-        <entry key="app/src/main/res/drawable/rounded_linearLayout.xml" value="0.1695" />
+        <entry key="app/src/main/res/drawable/rounded_red_button.xml" value="0.357" />
         <entry key="app/src/main/res/drawable/rounded_linear_layout.xml" value="0.1695" />
         <entry key="app/src/main/res/layout/activity_add_item.xml" value="0.3338541666666667" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.2" />

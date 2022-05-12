@@ -16,4 +16,5 @@
     <string name="discard_label">DISCARD</string>
     <string name="add_label">ADD</string>
     <string name="plus_sign_label">+</string>
+    <string name="upload_image_label">UPLOAD IMAGE</string>
 </resources>
