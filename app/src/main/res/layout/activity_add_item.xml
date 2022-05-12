@@ -9,10 +9,10 @@
     <LinearLayout
         android:layout_width="395dp"
         android:layout_height="720dp"
-        android:orientation="vertical"
         android:gravity="center"
+        android:orientation="vertical"
         tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="16dp">
+        tools:layout_editor_absoluteY="5dp">
 
         <ImageView
             android:id="@+id/imageView"
@@ -24,8 +24,8 @@
             android:id="@+id/upload_image_button"
             android:layout_width="216dp"
             android:layout_height="wrap_content"
-            android:text="@string/upload_image_label"
-            android:background="@drawable/rounded_button" />
+            android:background="@drawable/rounded_button"
+            android:text="@string/upload_image_label" />
 
         <TextView
             android:id="@+id/textView"
@@ -36,9 +36,9 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/title_textview"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="300dp"
-            android:layout_height="30dp"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            android:layout_height="30dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -54,9 +54,9 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/sub_title_textview"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="300dp"
-            android:layout_height="30dp"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            android:layout_height="30dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -72,9 +72,9 @@
 
         <Spinner
             android:id="@+id/category_dropdown"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="300dp"
-            android:layout_height="24dp"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"/>
+            android:layout_height="24dp" />
 
         <TextView
             android:id="@+id/textView4"
@@ -85,10 +85,10 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/description_textview"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="300dp"
             android:layout_height="80dp"
-            android:ems="10"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            android:ems="10">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
