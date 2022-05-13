@@ -57,7 +57,7 @@ public class categoryItemListAdapter extends ArrayAdapter<CollectionItem> {
         shareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "Redirect to share category activity", Toast.LENGTH_LONG);
+                Toast.makeText(getContext(), "Redirect to share category activity", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -66,7 +66,7 @@ public class categoryItemListAdapter extends ArrayAdapter<CollectionItem> {
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "Redirect to edit category activity", Toast.LENGTH_LONG);
+                Toast.makeText(getContext(), "Redirect to edit category activity", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -75,7 +75,7 @@ public class categoryItemListAdapter extends ArrayAdapter<CollectionItem> {
         infoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "Redirect to info category activity", Toast.LENGTH_LONG);
+                Toast.makeText(getContext(), "Redirect to info category activity", Toast.LENGTH_LONG).show();
             }
         });
 

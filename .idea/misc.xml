@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/circle_image.xml" value="0.1695" />
         <entry key="app/src/main/res/drawable/rounded_button.xml" value="0.1695" />
         <entry key="app/src/main/res/drawable/rounded_linearLayout.xml" value="0.1695" />
         <entry key="app/src/main/res/drawable/rounded_linear_layout.xml" value="0.1695" />
