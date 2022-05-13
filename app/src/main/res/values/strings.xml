@@ -6,4 +6,6 @@
     <string name="log_in">LOG IN</string>
     <string name="email_username">EMAIL/USERNAME</string>
     <string name="password">PASSWORD</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
