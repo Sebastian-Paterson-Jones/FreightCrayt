@@ -1,0 +1,12 @@
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/bottomNavPerson"
+        android:icon="@drawable/ic_baseline_person_24"
+        android:title="Account info"
+        android:contentDescription="Account information navigation button"
+        app:showAsAction="ifRoom"
+    />
+</menu>
