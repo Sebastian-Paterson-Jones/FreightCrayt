@@ -4,11 +4,18 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.List;
 
@@ -34,9 +41,13 @@ public class personalCategory extends Fragment {
         // create and instantiate dummy data
         DataHelper data = DataHelper.getInstance();
 
+        // get the search box
+        TextInputEditText searchBox = (TextInputEditText) view.findViewById(R.id.personalCategory_txtBoxSearch);
+
         data.addUserCategory("memes", "good ol memes", "1");
         data.addUserCategory("toys", "good ol toys", "2");
         data.addUserCategory("movies", "Movies", "3");
+        data.addUserCategory("cats", "cats", "4");
 
         // assign data to adapter
         categoryItemListAdapter itemListAdapter = new categoryItemListAdapter(getContext(), data.getUserCategories());
@@ -44,6 +55,22 @@ public class personalCategory extends Fragment {
         // assign adapter to listview
         ListView categoriesList = (ListView) view.findViewById(R.id.personal_catergoriesListView);
         categoriesList.setAdapter(itemListAdapter);
+
+        // set event listener for search box filtering
+        searchBox.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                itemListAdapter.getFilter().filter(searchBox.getText());
+            }
+        });
 
         return view;
     }

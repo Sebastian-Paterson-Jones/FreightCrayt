@@ -2,6 +2,7 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     >
@@ -12,28 +13,32 @@
         android:layout_height="0dp" />
 
     <LinearLayout
+        android:id="@+id/personal_listContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="5dp"
-        android:layout_marginTop="5dp"
         android:background="@drawable/rounded_linear_layout"
         android:orientation="horizontal">
 
-        <ImageView
-
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/personal_collectionItemImage"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:background="@drawable/circle_image" />
+            app:civ_border_width="2dp"
+            app:civ_border_color="#FF000000"
+            tools:ignore="MissingClass" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginLeft="15dp"
             android:gravity="center_vertical"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            >
 
             <TextView
                 android:id="@+id/personal_collectionItemTitle"
@@ -114,34 +119,6 @@
                     android:textSize="12sp" />
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:gravity="center_horizontal"
-                android:orientation="vertical">
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/personal_collectionItemInfo"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:background="@drawable/circle_image"
-                    android:insetLeft="0dp"
-                    android:insetTop="0dp"
-                    android:insetRight="0dp"
-                    android:insetBottom="0dp"
-                    app:icon="@drawable/ic_baseline_info_24"
-                    app:iconGravity="textStart"
-                    app:iconPadding="0dp"
-                    app:iconSize="15dp"
-                    app:iconTint="?colorTertiary" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Info"
-                    android:textSize="12sp" />
-            </LinearLayout>
         </LinearLayout>
 
 

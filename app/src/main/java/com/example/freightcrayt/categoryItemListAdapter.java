@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,7 +39,7 @@ public class categoryItemListAdapter extends ArrayAdapter<CollectionItem> {
         TextView collectionItemCount = (TextView) convertView.findViewById(R.id.personal_collectionItemCount);
         MaterialButton shareButton = (MaterialButton) convertView.findViewById(R.id.personal_collectionItemShare);
         MaterialButton editButton = (MaterialButton) convertView.findViewById(R.id.personal_collectionItemEdit);
-        MaterialButton infoButton = (MaterialButton) convertView.findViewById(R.id.personal_collectionItemInfo);
+        LinearLayout container = (LinearLayout) convertView.findViewById(R.id.personal_listContainer);
 
         // default image cuz items don't have images as of yet
         // TODO: update image
@@ -72,7 +73,7 @@ public class categoryItemListAdapter extends ArrayAdapter<CollectionItem> {
 
         // no handler just yet for redirecting to info activity
         // TODO: set redirect to category info activity
-        infoButton.setOnClickListener(new View.OnClickListener() {
+        container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getContext(), "Redirect to info category activity", Toast.LENGTH_LONG).show();

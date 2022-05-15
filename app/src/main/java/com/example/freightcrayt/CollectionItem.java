@@ -11,4 +11,9 @@ public class CollectionItem {
         this.description = description;
         this.collectionID = collectionID;
     }
+
+    @Override
+    public String toString() {
+        return this.title;
+    }
 }
