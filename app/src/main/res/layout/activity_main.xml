@@ -42,7 +42,7 @@
         android:layout_gravity="bottom"
         android:backgroundTint="?colorPrimary"
         app:menu="@menu/bottom_app_bar"
-        app:navigationIcon="@drawable/ic_baseline_dashboard_24"
+        app:navigationIcon="@drawable/ic_round_menu_24"
         app:navigationIconTint="@color/black" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

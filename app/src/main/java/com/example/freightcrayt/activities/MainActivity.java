@@ -2,9 +2,13 @@ package com.example.freightcrayt.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.menu.ActionMenuItemView;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
 
 import com.example.freightcrayt.utils.IntentHelper;
 import com.example.freightcrayt.R;
@@ -21,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private TabAdapter adapter;
     private TabLayout tabLayout;
     private ViewPager2 viewPager;
+    private ActionMenuItemView accountNav;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
+        accountNav = (ActionMenuItemView) findViewById(R.id.bottomNavPerson);
         viewPager = (ViewPager2) findViewById(R.id.mainViewPager);
         tabLayout = (TabLayout) findViewById(R.id.mainTabLayout);
 
@@ -54,5 +60,13 @@ public class MainActivity extends AppCompatActivity {
             }
         }).attach();
         viewPager.setCurrentItem(0);
+
+        // set click listeners
+        accountNav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                IntentHelper.openIntent(MainActivity.this, "ExtraInfo", UserDetail.class);
+            }
+        });
     }
 }
