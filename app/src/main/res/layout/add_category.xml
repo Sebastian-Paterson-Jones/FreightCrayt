@@ -117,18 +117,30 @@
 
         </EditText>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="88dp"
-            android:gravity="center">
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="88dp"
+                android:gravity="center">
+                <Button
 
-            <Button
-                android:layout_width="165dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="19dp"
+                    android:layout_width="165dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="19dp"
 
-                android:text="Add new" />
-        </LinearLayout>
+                    android:text="Discard" />
+
+                <Button
+                    android:layout_width="165dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="19dp"
+
+                    android:text="Add new" />
+            </LinearLayout>
+        </RelativeLayout>
+
 
 
 
