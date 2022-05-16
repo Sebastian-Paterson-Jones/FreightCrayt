@@ -1,4 +1,4 @@
-package com.example.freightcrayt;
+package com.example.freightcrayt.utils;
 
 import android.content.Context;
 import android.content.Intent;

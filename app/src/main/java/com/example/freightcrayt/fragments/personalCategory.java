@@ -1,4 +1,4 @@
-package com.example.freightcrayt;
+package com.example.freightcrayt.fragments;
 
 import android.os.Bundle;
 
@@ -9,15 +9,12 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.freightcrayt.utils.DataHelper;
+import com.example.freightcrayt.R;
+import com.example.freightcrayt.adapters.categoryItemListAdapter;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
-
-import java.util.List;
 
 public class personalCategory extends Fragment {
 

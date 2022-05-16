@@ -1,8 +1,10 @@
-package com.example.freightcrayt;
+package com.example.freightcrayt.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.freightcrayt.R;
 
 public class AddItem extends AppCompatActivity {
 

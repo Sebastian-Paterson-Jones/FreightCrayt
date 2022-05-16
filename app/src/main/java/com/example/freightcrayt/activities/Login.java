@@ -1,20 +1,20 @@
-package com.example.freightcrayt;
+package com.example.freightcrayt.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
-import android.widget.Toast;
 
+import com.example.freightcrayt.fragments.LoginFragment;
+import com.example.freightcrayt.R;
+import com.example.freightcrayt.fragments.RegisterFragment;
+import com.example.freightcrayt.adapters.TabAdapter;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
-public class MainActivity extends AppCompatActivity {
+public class Login extends AppCompatActivity {
 
-    // pagers for logic
     private TabAdapter adapter;
     private TabLayout tabLayout;
     private ViewPager2 viewPager;
@@ -22,31 +22,23 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
 
-        // redirect to login screen if not logged in
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        if(mAuth.getCurrentUser() == null){
-            IntentHelper.openIntent(MainActivity.this, "Not logged in", Login.class);
-            return;
-        }
-
-        setContentView(R.layout.activity_main);
-
-        viewPager = (ViewPager2) findViewById(R.id.mainViewPager);
-        tabLayout = (TabLayout) findViewById(R.id.mainTabLayout);
+        viewPager = (ViewPager2) findViewById(R.id.loginViewPager);
+        tabLayout = (TabLayout) findViewById(R.id.loginTabLayout);
 
         adapter = new TabAdapter(getSupportFragmentManager(), getLifecycle());
-        adapter.addFragment(personalCategory.newInstance());
-        adapter.addFragment(collaborationCategory.newInstance());
+        adapter.addFragment(LoginFragment.newInstance());
+        adapter.addFragment(RegisterFragment.newInstance());
 
         viewPager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
         viewPager.setAdapter(adapter);
         new TabLayoutMediator(tabLayout, viewPager, new TabLayoutMediator.TabConfigurationStrategy() {
             @Override public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
                 if (position == 0) {
-                    tab.setText("Personal");
+                    tab.setText("Login");
                 } else {
-                    tab.setText("Collaboration");
+                    tab.setText("Join");
                 }
             }
         }).attach();

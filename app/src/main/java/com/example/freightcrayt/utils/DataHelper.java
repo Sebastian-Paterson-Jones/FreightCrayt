@@ -1,12 +1,9 @@
-package com.example.freightcrayt;
+package com.example.freightcrayt.utils;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
+import com.example.freightcrayt.models.CollectionItem;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class DataHelper {
 
