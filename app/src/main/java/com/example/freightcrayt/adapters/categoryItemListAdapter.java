@@ -1,4 +1,4 @@
-package com.example.freightcrayt;
+package com.example.freightcrayt.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -13,8 +13,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.freightcrayt.models.CollectionItem;
+import com.example.freightcrayt.R;
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 

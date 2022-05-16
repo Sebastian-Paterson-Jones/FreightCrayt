@@ -1,4 +1,4 @@
-package com.example.freightcrayt;
+package com.example.freightcrayt.models;
 
 public class CollectionItem {
 
