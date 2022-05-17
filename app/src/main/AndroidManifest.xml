@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FreightCrayt">
         <activity
+            android:name=".add_category"
+            android:exported="false" />
+        <activity
+            android:name=".add_new"
+            android:exported="false" />
+        <activity
             android:name=".Login"
             android:exported="true"
             android:windowSoftInputMode="adjustPan">
