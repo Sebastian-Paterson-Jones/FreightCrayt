@@ -22,31 +22,33 @@ public class DataHelper {
         return singleton_instance;
     }
 
-    public static String getUsername() {
+    public String getUsername() {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         return mAuth.getCurrentUser().getDisplayName();
     }
 
-    public static String getUserEmail() {
+    public String getUserEmail() {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         return mAuth.getCurrentUser().getEmail();
     }
 
-    public static String getUserID() {
+    public String getUserID() {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         return mAuth.getCurrentUser().getUid();
     }
 
-    public static ArrayList<CollectionItem> getUserCategories() {
+    public ArrayList<CollectionItem> getUserCategories() {
         return collections;
     }
 
-    public static void addUserCategory(String title, String description, String collectionID) {
+    public int getUserCategoriesLength() { return collections.size(); }
+
+    public void addUserCategory(String title, String description, String collectionID) {
         CollectionItem newCollection = new CollectionItem(title, description, collectionID);
         collections.add(newCollection);
     }
 
-    public static void removeCategory(String id) {
+    public void removeCategory(String id) {
         // still needs to be implemented
     }
 }

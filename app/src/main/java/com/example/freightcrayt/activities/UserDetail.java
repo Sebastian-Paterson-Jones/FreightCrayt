@@ -9,10 +9,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.freightcrayt.R;
+import com.example.freightcrayt.utils.DataHelper;
 import com.example.freightcrayt.utils.IntentHelper;
 import com.google.android.material.bottomappbar.BottomAppBar;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class UserDetail extends AppCompatActivity {
+
+    // Data helper for getting user credentials
+    DataHelper dataHelper;
 
     private ImageView userImage;
     private TextView userEmail;
@@ -29,6 +35,9 @@ public class UserDetail extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_detail);
 
+        // initiate dataHelper
+        dataHelper = DataHelper.getInstance();
+
         // initiate fields
         userImage = (ImageView) findViewById(R.id.user_userImage);
         userEmail = (TextView) findViewById(R.id.user_txtboxEmail);
@@ -39,6 +48,12 @@ public class UserDetail extends AppCompatActivity {
         totalItems = (TextView) findViewById(R.id.user_totalItems);
         signOut = (Button) findViewById(R.id.user_signOut);
         bottomBar = (BottomAppBar) findViewById(R.id.user_bottomAppBar);
+
+        // set user details
+        userImage.setImageResource(R.drawable.ic_baseline_person_24);
+        userEmail.setText(dataHelper.getUserEmail());
+        userName.setText(dataHelper.getUsername());
+        totalCrates.setText(dataHelper.getUserCategoriesLength() + " Crates");
 
         // On click handlers
         bottomBar.setNavigationOnClickListener(new View.OnClickListener() {
