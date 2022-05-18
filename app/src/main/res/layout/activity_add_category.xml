@@ -4,7 +4,7 @@ android:layout_width="match_parent"
 android:layout_height="match_parent"
 android:orientation="vertical"
 xmlns:tools="http://schemas.android.com/tools"
-tools:context=".add_category">
+tools:context=".activities.add_category">
 
 <LinearLayout
     android:layout_width="match_parent"

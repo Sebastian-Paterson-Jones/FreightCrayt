@@ -30,10 +30,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".add_category"
+            android:name=".activities.add_category"
             android:exported="false" />
         <activity
-            android:name=".add_new"
+            android:name=".activities.add_new"
             android:exported="false" />
     </application>
 

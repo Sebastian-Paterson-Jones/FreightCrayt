@@ -1,11 +1,13 @@
-package com.example.freightcrayt;
+package com.example.freightcrayt.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import com.example.freightcrayt.R;
+import com.example.freightcrayt.utils.IntentHelper;
 
 public class add_new extends AppCompatActivity {
 
