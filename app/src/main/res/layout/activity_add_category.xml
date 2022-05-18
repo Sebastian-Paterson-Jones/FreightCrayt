@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical"
+xmlns:tools="http://schemas.android.com/tools"
+tools:context=".activities.add_category">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:background="@drawable/bg_heading"
+    android:gravity="center_vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ADD CATEGORY"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+
+        android:textSize="24dp">
+
+    </TextView>
+
+</LinearLayout>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="20dp"
+    android:layout_marginLeft="30dp"
+    android:background="@color/white">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+
+            android:id="@+id/Cim1"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:maxHeight="100dp"
+            android:src="@drawable/boxes"></ImageView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="180dp"
+            android:text="NEW CRAYT"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:textStyle="bold">
+
+        </TextView>
+
+    </RelativeLayout>
+
+
+</LinearLayout>
+
+<androidx.core.widget.NestedScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToPadding="false"
+    android:padding="15dp"
+    android:scrollbars="none"
+    android:scrollingCache="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="50dp"
+            android:paddingBottom="15dp"
+            android:text="CATEGORY NAME"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            >
+
+        </TextView>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/custom_input"
+            android:paddingLeft="10dp"
+            android:hint="Name"
+            >
+
+        </EditText>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="50dp"
+            android:paddingBottom="15dp"
+            android:text="DESCRIPTION"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            >
+
+        </TextView>
+        <EditText
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_input"
+            android:hint="Description"
+            android:paddingLeft="10dp"
+            android:inputType="textMultiLine"
+            android:maxLines="5"
+            android:lines="5"
+            android:gravity="left">
+
+        </EditText>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="88dp"
+                android:gravity="center">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/discard_btn"
+                    android:textColor="@color/white"
+                    android:background="@drawable/discard_button"
+                    android:layout_marginRight="30dp"
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:text="discard"
+                    android:textSize="12dp" />
+
+                <Button
+
+                    android:id="@+id/add_category_btn"
+                    android:background="@drawable/rounded_button"
+                    android:layout_marginLeft="30dp"
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:text="Add new"
+                    android:textSize="12dp" />
+            </LinearLayout>
+        </RelativeLayout>
+
+
+
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>
+
+
+
+</LinearLayout>
