@@ -18,20 +18,13 @@ public class add_new extends AppCompatActivity {
 
 
         btnAddCrayt = (Button) (findViewById(R.id.add_crayt_btn));
+
         btnAddCrayt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
             {
-                openAddCraytActivity();
-
+                IntentHelper.openIntent(add_new.this, "Create new crate", add_category.class);
             }
         });
-    }
-
-    private void openAddCraytActivity()
-    {
-        Intent intent = new Intent(this, add_category.class);
-        startActivity(intent);
-
     }
 }
