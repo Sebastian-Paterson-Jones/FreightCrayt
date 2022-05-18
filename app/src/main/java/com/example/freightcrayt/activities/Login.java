@@ -44,4 +44,9 @@ public class Login extends AppCompatActivity {
         }).attach();
         viewPager.setCurrentItem(0);
     }
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
 }

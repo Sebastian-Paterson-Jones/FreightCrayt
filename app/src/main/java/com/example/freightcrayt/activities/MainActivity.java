@@ -5,7 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.menu.ActionMenuItemView;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,12 +36,22 @@ public class MainActivity extends AppCompatActivity {
 
         // redirect to login screen if not logged in
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        if(mAuth.getCurrentUser().getUid().isEmpty()){
+        if(mAuth.getCurrentUser() == null){
             IntentHelper.openIntent(MainActivity.this, "Not logged in", Login.class);
-            return;
+            finish();
         }
 
         setContentView(R.layout.activity_main);
+
+        // broadcast to finish activity on logout
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("com.package.ACTION_LOGOUT");
+        registerReceiver(new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                finish();
+            }
+        }, intentFilter);
 
         accountNav = (ActionMenuItemView) findViewById(R.id.bottomNavPerson);
         viewPager = (ViewPager2) findViewById(R.id.mainViewPager);

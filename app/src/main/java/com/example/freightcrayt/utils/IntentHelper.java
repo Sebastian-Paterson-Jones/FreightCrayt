@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.freightcrayt.activities.Login;
+
 public class IntentHelper {
 
     public static void openIntent(Context context, String extraDetails, Class passTo) {
@@ -28,5 +30,14 @@ public class IntentHelper {
         Intent sharedIntent = Intent.createChooser(sendIntent, null);
 
         context.startActivity(sharedIntent);
+    }
+
+    public static void logout(Context context) {
+
+        openIntent(context, "Logout", Login.class);
+
+        Intent broadcastLogout = new Intent();
+        broadcastLogout.setAction("com.package.ACTION_LOGOUT");
+        context.sendBroadcast(broadcastLogout);
     }
 }
