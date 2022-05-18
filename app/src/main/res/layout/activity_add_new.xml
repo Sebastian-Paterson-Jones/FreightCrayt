@@ -80,7 +80,7 @@
                     android:layout_height="150dp"
                     android:layout_alignParentRight="true"
                     android:maxHeight="100dp"
-                    android:src="@drawable/boxes" />
+                    android:src="@drawable/ic_boxes_image" />
 
 
             </RelativeLayout>
@@ -145,7 +145,7 @@
                     android:layout_height="150dp"
                     android:layout_alignParentRight="true"
                     android:maxHeight="100dp"
-                    android:src="@drawable/product" />
+                    android:src="@drawable/ic_box_image" />
 
 
             </RelativeLayout>
