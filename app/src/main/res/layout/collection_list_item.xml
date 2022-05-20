@@ -44,6 +44,7 @@
                 android:id="@+id/personal_collectionItemTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:maxWidth="170dp"
                 android:textSize="20sp"
                 android:textStyle="bold"></TextView>
 
@@ -51,6 +52,7 @@
                 android:id="@+id/personal_collectionItemCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:maxWidth="170dp"
                 android:textSize="16sp"></TextView>
         </LinearLayout>
 

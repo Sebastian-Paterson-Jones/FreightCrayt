@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FreightCrayt">
         <activity
+            android:name=".activities.CategoryDetail"
+            android:exported="false" />
+        <activity
             android:name=".activities.UserDetail"
             android:exported="false" />
         <activity

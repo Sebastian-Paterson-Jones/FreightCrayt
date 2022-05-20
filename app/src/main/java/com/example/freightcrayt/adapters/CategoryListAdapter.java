@@ -13,15 +13,18 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.example.freightcrayt.models.CollectionItem;
+import com.example.freightcrayt.activities.CategoryDetail;
+import com.example.freightcrayt.models.Collection;
 import com.example.freightcrayt.R;
+import com.example.freightcrayt.utils.DataHelper;
+import com.example.freightcrayt.utils.IntentHelper;
 import com.google.android.material.button.MaterialButton;
 
 import java.util.ArrayList;
 
-public class categoryItemListAdapter extends ArrayAdapter<CollectionItem> {
+public class CategoryListAdapter extends ArrayAdapter<Collection> {
 
-    public categoryItemListAdapter(Context context, ArrayList<CollectionItem> collectionArrayList) {
+    public CategoryListAdapter(Context context, ArrayList<Collection> collectionArrayList) {
         super(context, R.layout.collection_list_item, R.id.personal_listItemID, collectionArrayList);
     }
 
@@ -29,29 +32,30 @@ public class categoryItemListAdapter extends ArrayAdapter<CollectionItem> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
-        CollectionItem item = getItem(position);
+        Collection item = getItem(position);
 
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.collection_list_item, parent, false);
         }
 
-        ImageView collectionItemImage = (ImageView) convertView.findViewById(R.id.personal_collectionItemImage);
-        TextView collectionItemTitle = (TextView) convertView.findViewById(R.id.personal_collectionItemTitle);
-        TextView collectionItemCount = (TextView) convertView.findViewById(R.id.personal_collectionItemCount);
+        ImageView collectionImage = (ImageView) convertView.findViewById(R.id.personal_collectionItemImage);
+        TextView collectionTitle = (TextView) convertView.findViewById(R.id.personal_collectionItemTitle);
+        TextView collectionCount = (TextView) convertView.findViewById(R.id.personal_collectionItemCount);
         MaterialButton shareButton = (MaterialButton) convertView.findViewById(R.id.personal_collectionItemShare);
         MaterialButton editButton = (MaterialButton) convertView.findViewById(R.id.personal_collectionItemEdit);
         LinearLayout container = (LinearLayout) convertView.findViewById(R.id.personal_listContainer);
 
+        // data instance
+        DataHelper data = DataHelper.getInstance();
+
         // default image cuz items don't have images as of yet
-        // TODO: update image
-        collectionItemImage.setImageResource(R.drawable.ic_baseline_person_24);
+        collectionImage.setImageResource(R.drawable.ic_baseline_person_24);
 
         // set the title
-        collectionItemTitle.setText(item.title);
+        collectionTitle.setText(item.title);
 
-        // default count to 0 since no logic to get count yet
-        // TODO: set count variable in collectionItem class
-        collectionItemCount.setText("10");
+        // set num items
+        collectionCount.setText(String.valueOf(data.getUserCategorySize(item.collectionID)));
 
 
         // no handler just yet for redirecting to share activity
@@ -72,12 +76,11 @@ public class categoryItemListAdapter extends ArrayAdapter<CollectionItem> {
             }
         });
 
-        // no handler just yet for redirecting to info activity
-        // TODO: set redirect to category info activity
+        // navigate to activity detail
         container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "Redirect to info category activity", Toast.LENGTH_LONG).show();
+                IntentHelper.openIntent(getContext(), item.collectionID, CategoryDetail.class);
             }
         });
 
