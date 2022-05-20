@@ -13,7 +13,7 @@ import android.widget.ListView;
 
 import com.example.freightcrayt.utils.DataHelper;
 import com.example.freightcrayt.R;
-import com.example.freightcrayt.adapters.categoryItemListAdapter;
+import com.example.freightcrayt.adapters.CategoryListAdapter;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class personalCategory extends Fragment {
@@ -41,13 +41,8 @@ public class personalCategory extends Fragment {
         // get the search box
         TextInputEditText searchBox = (TextInputEditText) view.findViewById(R.id.personalCategory_txtBoxSearch);
 
-        data.addUserCategory("memes", "good ol memes", "1");
-        data.addUserCategory("toys", "good ol toys", "2");
-        data.addUserCategory("movies", "Movies", "3");
-        data.addUserCategory("cats", "cats", "4");
-
         // assign data to adapter
-        categoryItemListAdapter itemListAdapter = new categoryItemListAdapter(getContext(), data.getUserCategories());
+        CategoryListAdapter itemListAdapter = new CategoryListAdapter(getContext(), data.getUserCategories());
 
         // assign adapter to listview
         ListView categoriesList = (ListView) view.findViewById(R.id.personal_catergoriesListView);

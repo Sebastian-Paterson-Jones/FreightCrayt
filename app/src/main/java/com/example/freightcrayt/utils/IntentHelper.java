@@ -12,7 +12,7 @@ public class IntentHelper {
 
         Intent i = new Intent(context, passTo);
 
-        i.putExtra("order", extraDetails);
+        i.putExtra("extraInfo", extraDetails);
 
         context.startActivity(i);
     }
