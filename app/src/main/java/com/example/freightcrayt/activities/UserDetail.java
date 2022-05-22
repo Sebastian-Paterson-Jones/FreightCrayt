@@ -32,7 +32,6 @@ public class UserDetail extends AppCompatActivity {
     private TextView totalCrates;
     private TextView totalItems;
     private Button signOut;
-    private BottomAppBar bottomBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,21 +60,12 @@ public class UserDetail extends AppCompatActivity {
         totalCrates = (TextView) findViewById(R.id.user_totalCrates);
         totalItems = (TextView) findViewById(R.id.user_totalItems);
         signOut = (Button) findViewById(R.id.user_signOut);
-        bottomBar = (BottomAppBar) findViewById(R.id.user_bottomAppBar);
 
         // set user details
         userImage.setImageResource(R.drawable.ic_baseline_person_24);
         userEmail.setText(dataHelper.getUserEmail());
         userName.setText(dataHelper.getUsername());
         totalCrates.setText(dataHelper.getUserCategoriesLength() + " Crates");
-
-        // On click handlers
-        bottomBar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                IntentHelper.openIntent(UserDetail.this, "Home", MainActivity.class);
-            }
-        });
 
         signOut.setOnClickListener(new View.OnClickListener() {
             @Override

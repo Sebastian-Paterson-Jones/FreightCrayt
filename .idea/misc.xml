@@ -17,12 +17,14 @@
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.2" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.16041666666666668" />
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.16041666666666668" />
+        <entry key="app/src/main/res/layout/activity_user_detail.xml" value="0.1527777777777778" />
         <entry key="app/src/main/res/layout/add_category.xml" value="0.28033447265625" />
         <entry key="app/src/main/res/layout/add_new.xml" value="0.19239959716796878" />
         <entry key="app/src/main/res/layout/addnew_category.xml" value="0.23637542724609384" />
         <entry key="app/src/main/res/layout/bottom_app_bar.xml" value="0.14583333333333334" />
         <entry key="app/src/main/res/layout/collection_item_list_item.xml" value="0.19010416666666666" />
         <entry key="app/src/main/res/layout/collection_list_item.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_bottom_nav.xml" value="0.1527777777777778" />
         <entry key="app/src/main/res/layout/fragment_collaboration_category.xml" value="0.16041666666666668" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.2" />
         <entry key="app/src/main/res/layout/fragment_personal_catagory.xml" value="0.25" />

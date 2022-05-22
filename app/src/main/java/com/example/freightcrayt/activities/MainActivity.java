@@ -31,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
     private TabAdapter adapter;
     private TabLayout tabLayout;
     private ViewPager2 viewPager;
+
+    // navigation button
     private ActionMenuItemView accountNav;
 
     @Override
@@ -56,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }, intentFilter);
 
-        accountNav = (ActionMenuItemView) findViewById(R.id.bottomNavPerson);
         viewPager = (ViewPager2) findViewById(R.id.mainViewPager);
         tabLayout = (TabLayout) findViewById(R.id.mainTabLayout);
 
@@ -76,13 +77,5 @@ public class MainActivity extends AppCompatActivity {
             }
         }).attach();
         viewPager.setCurrentItem(0);
-
-        // set click listeners
-        accountNav.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                IntentHelper.openIntent(MainActivity.this, "ExtraInfo", UserDetail.class);
-            }
-        });
     }
 }
