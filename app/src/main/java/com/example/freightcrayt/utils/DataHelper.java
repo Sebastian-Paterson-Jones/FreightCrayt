@@ -29,6 +29,12 @@ public class DataHelper {
         addUserCategory("Moviez and stuff", "my movies");
         addUserCategory("games", "my games");
         addUserCategory("watches", "my watches");
+        addUserCategory("watches", "my watches");
+        addUserCategory("watches", "my watches");
+        addUserCategory("watches", "my watches");
+        addUserCategory("watches", "my watches");
+        addUserCategory("watches", "my watches");
+        addUserCategory("watches", "my watches");
 
         String collection1ID = collections.get(0).collectionID;
         String collection2ID = collections.get(1).collectionID;

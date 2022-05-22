@@ -2,6 +2,7 @@ package com.example.freightcrayt.activities;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.menu.ActionMenuItemView;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -10,13 +11,18 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.freightcrayt.R;
 import com.example.freightcrayt.adapters.CategoryItemListAdapter;
 import com.example.freightcrayt.utils.DataHelper;
+import com.example.freightcrayt.utils.IntentHelper;
+import com.google.android.material.bottomappbar.BottomAppBar;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class CategoryDetail extends AppCompatActivity {
@@ -25,6 +31,11 @@ public class CategoryDetail extends AppCompatActivity {
     private TextInputEditText searchBox;
     private TextView categoryTitle;
     private TextView categoryNumItems;
+    private ImageView addNewItemButton;
+    private FloatingActionButton addNew;
+    private ImageView backButton;
+    private ActionMenuItemView accountNav;
+    private BottomAppBar bottomBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +62,8 @@ public class CategoryDetail extends AppCompatActivity {
         this.searchBox = (TextInputEditText) findViewById(R.id.category_detail_add_txtBoxSearch);
         this.categoryTitle = (TextView) findViewById(R.id.category_detail_title);
         this.categoryNumItems = (TextView) findViewById(R.id.category_detail_numItems);
+        this.addNewItemButton = (ImageView) findViewById(R.id.category_detail_add);
+        this.backButton = (ImageView) findViewById(R.id.category_detail_backButton);
 
 //        Toast.makeText(this, data.getUserCategory(this.collectionID, this).title, Toast.LENGTH_SHORT).show();
         // Set the header text
@@ -77,6 +90,20 @@ public class CategoryDetail extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable editable) {
                 itemListAdapter.getFilter().filter(searchBox.getText());
+            }
+        });
+
+        // onClick handlers
+        addNewItemButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                IntentHelper.openIntent(CategoryDetail.this, collectionID, AddItem.class);
+            }
+        });
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
     }
