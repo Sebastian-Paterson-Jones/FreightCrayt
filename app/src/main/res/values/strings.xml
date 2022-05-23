@@ -17,6 +17,8 @@
     <string name="add_label">ADD</string>
     <string name="plus_sign_label">+</string>
     <string name="upload_image_label">UPLOAD IMAGE</string>
+    <string name="upload_new_image_label">UPLOAD NEW IMAGE</string>
+    <string name="update_label">UPDATE</string>
     <string name="new_item_label">NEW ITEM</string>
     <string name="image_of_collectable_desc">Image of Collectable</string>
 </resources>
