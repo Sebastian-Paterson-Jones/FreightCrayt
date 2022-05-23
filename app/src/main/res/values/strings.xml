@@ -19,4 +19,14 @@
     <string name="upload_image_label">UPLOAD IMAGE</string>
     <string name="new_item_label">NEW ITEM</string>
     <string name="image_of_collectable_desc">Image of Collectable</string>
+    <string name="crayts_label">CRAYTS</string>
+    <string name="add_new_label">ADD NEW</string>
+    <string name="add_category_label">ADD CATEGORY</string>
+    <string name="new_crayt_label">NEW CRAYT</string>
+    <string name="category_name_label">CATEGORY NAME</string>
+    <string name="total_crayts_label">Total Crayts</string>
+    <string name="total_items_label">Total Items</string>
+    <string name="delete_button">Delete</string>
+    <string name="sign_out_button">Sign out</string>
+    <string name="update_button">Update</string>
 </resources>

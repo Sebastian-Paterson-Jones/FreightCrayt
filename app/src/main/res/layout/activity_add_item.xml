@@ -14,12 +14,12 @@
         android:layout_marginTop="48dp"
         android:layout_marginEnd="13dp"
         android:layout_marginBottom="14dp"
+        android:contentDescription="@string/image_of_collectable_desc"
         app:layout_constraintBottom_toTopOf="@+id/upload_image_button"
         app:layout_constraintEnd_toStartOf="@+id/textView6"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_camera"
-        android:contentDescription="@string/image_of_collectable_desc" />
+        app:srcCompat="@android:drawable/ic_menu_camera" />
 
     <Button
         android:id="@+id/upload_image_button"
@@ -117,14 +117,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/discard_button"
-        android:layout_width="wrap_content"
+        android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="42dp"
-        android:layout_marginTop="21dp"
-        android:background="@drawable/rounded_red_button"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/discard_button"
         android:text="@string/discard_label"
+        android:textColor="@color/white"
+        android:textSize="12dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/add_custom_button" />
 
@@ -174,13 +176,13 @@
 
     <Button
         android:id="@+id/add_button"
-        android:layout_width="wrap_content"
+        android:layout_width="130dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="143dp"
-        android:layout_marginTop="114dp"
+        android:layout_marginTop="116dp"
+        android:layout_marginEnd="39dp"
         android:background="@drawable/rounded_button"
         android:text="@string/add_label"
-        app:layout_constraintStart_toEndOf="@+id/discard_button"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/description_textview" />
 
     <TextView
