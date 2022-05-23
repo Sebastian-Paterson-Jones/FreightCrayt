@@ -33,7 +33,7 @@ public class personalCategory extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_personal_catagory, container, false);
+        View view = inflater.inflate(R.layout.fragment_personal_category, container, false);
 
         // create and instantiate dummy data
         DataHelper data = DataHelper.getInstance();

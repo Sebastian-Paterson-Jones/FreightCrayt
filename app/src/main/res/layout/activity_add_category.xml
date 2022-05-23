@@ -15,7 +15,7 @@ tools:context=".activities.add_category">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="ADD CATEGORY"
+        android:text="@string/add_category_label"
         android:textStyle="bold"
         android:textAlignment="center"
         android:textColor="@color/black"
@@ -50,7 +50,7 @@ tools:context=".activities.add_category">
             android:layout_alignParentRight="true"
             android:layout_marginTop="20dp"
             android:layout_marginRight="180dp"
-            android:text="NEW CRAYT"
+            android:text="@string/new_crayt_label"
             android:textColor="@color/black"
             android:textSize="20dp"
             android:textStyle="bold">
@@ -79,7 +79,7 @@ tools:context=".activities.add_category">
             android:layout_height="wrap_content"
             android:paddingTop="50dp"
             android:paddingBottom="15dp"
-            android:text="CATEGORY NAME"
+            android:text="@string/category_name_label"
             android:textStyle="bold"
             android:textColor="@color/black"
             >
@@ -100,7 +100,7 @@ tools:context=".activities.add_category">
             android:layout_height="wrap_content"
             android:paddingTop="50dp"
             android:paddingBottom="15dp"
-            android:text="DESCRIPTION"
+            android:text="@string/description_label"
             android:textStyle="bold"
             android:textColor="@color/black"
             >
@@ -136,7 +136,7 @@ tools:context=".activities.add_category">
                     android:layout_marginRight="30dp"
                     android:layout_width="130dp"
                     android:layout_height="wrap_content"
-                    android:text="discard"
+                    android:text="@string/discard_label"
                     android:textSize="12dp" />
 
                 <Button
