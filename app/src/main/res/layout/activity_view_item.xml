@@ -6,4 +6,109 @@
     android:layout_height="match_parent"
     tools:context=".activities.ViewItem">
 
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="399dp"
+        android:layout_height="408dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="3dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_camera" />
+
+    <LinearLayout
+        android:layout_width="377dp"
+        android:layout_height="311dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3">
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/title_label" />
+
+        <TextView
+            android:id="@+id/collectableTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="SPIDER MAN"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="GENRE" />
+
+        <TextView
+            android:id="@+id/collectableGenre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ADVENTURE"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="INFO" />
+
+        <TextView
+            android:id="@+id/collectableInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="110 min"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/description_label" />
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed interdum, nisl id condimentum pellentesque, libero mauris posuere nisi, sed gravida erat dui id felis. Donec fermentum placerat interdum." />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/button"
+        android:layout_width="54dp"
+        android:layout_height="47dp"
+        android:background="@drawable/circle_image"
+        tools:layout_editor_absoluteX="263dp"
+        tools:layout_editor_absoluteY="357dp" />
+
+    <ImageView
+        android:id="@+id/button2"
+        android:layout_width="52dp"
+        android:layout_height="46dp"
+        android:background="@drawable/circle_image"
+        tools:layout_editor_absoluteX="326dp"
+        tools:layout_editor_absoluteY="358dp" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="39dp"
+        android:layout_height="31dp"
+        app:srcCompat="@drawable/ic_baseline_edit_24"
+        tools:layout_editor_absoluteX="270dp"
+        tools:layout_editor_absoluteY="365dp" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="29dp"
+        android:layout_height="31dp"
+        app:srcCompat="@drawable/ic_outline_delete_24"
+        tools:layout_editor_absoluteX="337dp"
+        tools:layout_editor_absoluteY="365dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
