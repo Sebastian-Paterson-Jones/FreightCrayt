@@ -20,6 +20,7 @@ import com.example.freightcrayt.utils.DataHelper;
 import com.example.freightcrayt.utils.IntentHelper;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
+import com.example.freightcrayt.activities.edit_item_activity;
 
 import java.util.ArrayList;
 
@@ -66,11 +67,10 @@ public class CategoryItemListAdapter extends ArrayAdapter<CollectionItem> {
 
 
         // no handler just yet for redirecting to share activity
-        // TODO: set redirect to edit item activity
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "editItem", Toast.LENGTH_LONG).show();
+                IntentHelper.openIntent(getContext(), item.itemID, edit_item_activity.class);
             }
         });
 
