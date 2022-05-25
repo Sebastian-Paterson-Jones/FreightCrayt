@@ -18,6 +18,15 @@ import com.google.android.material.textfield.TextInputEditText;
 
 public class personalCategory extends Fragment {
 
+    // list item adapter
+    CategoryListAdapter itemListAdapter;
+
+    // data helper
+    DataHelper data;
+
+    // fields
+    ListView categoriesList;
+
     public personalCategory() {
     }
 
@@ -36,16 +45,16 @@ public class personalCategory extends Fragment {
         View view = inflater.inflate(R.layout.fragment_personal_category, container, false);
 
         // create and instantiate dummy data
-        DataHelper data = DataHelper.getInstance();
+        data = DataHelper.getInstance();
 
         // get the search box
         TextInputEditText searchBox = (TextInputEditText) view.findViewById(R.id.personalCategory_txtBoxSearch);
 
         // assign data to adapter
-        CategoryListAdapter itemListAdapter = new CategoryListAdapter(getContext(), data.getUserCategories());
+        itemListAdapter = new CategoryListAdapter(getContext(), data.getUserCategories());
 
         // assign adapter to listview
-        ListView categoriesList = (ListView) view.findViewById(R.id.personal_catergoriesListView);
+        categoriesList = (ListView) view.findViewById(R.id.personal_catergoriesListView);
         categoriesList.setAdapter(itemListAdapter);
 
         // set event listener for search box filtering

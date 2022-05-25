@@ -3,6 +3,7 @@ package com.example.freightcrayt.adapters;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.freightcrayt.R;
+import com.example.freightcrayt.activities.ViewItem;
 import com.example.freightcrayt.models.CollectionItem;
 import com.example.freightcrayt.utils.DataHelper;
 import com.example.freightcrayt.utils.IntentHelper;
@@ -60,7 +62,7 @@ public class CategoryItemListAdapter extends ArrayAdapter<CollectionItem> {
         collectionItemTitle.setText(item.title);
 
         // set subtitle
-        collectionItemSubtitle.setText(item.subtitle);
+        collectionItemSubtitle.setText(item.acquisitionDate);
 
         // set description
         collectionItemDescription.setText(item.description);
@@ -81,6 +83,9 @@ public class CategoryItemListAdapter extends ArrayAdapter<CollectionItem> {
                 switch (which){
                     case DialogInterface.BUTTON_POSITIVE:
                         data.removeUserCategoryItem(item.itemID);
+                        Intent broadcastRefresh = new Intent();
+                        broadcastRefresh.setAction("com.package.ACTION_LOGOUT");
+                        getContext().sendBroadcast(broadcastRefresh);
                         break;
 
                     case DialogInterface.BUTTON_NEGATIVE:
@@ -101,12 +106,10 @@ public class CategoryItemListAdapter extends ArrayAdapter<CollectionItem> {
             }
         });
 
-        // TODO: navigate to item detail activity
         collectionItemCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                IntentHelper.openIntent(getContext(), item.itemID, CategoryDetail.class);
-                Toast.makeText(getContext(), "Redirect to item detail", Toast.LENGTH_SHORT).show();
+                IntentHelper.openIntent(getContext(), item.itemID, ViewItem.class);
             }
         });
 
