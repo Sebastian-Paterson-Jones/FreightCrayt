@@ -48,16 +48,6 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-        // broadcast to finish activity on logout
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction("com.package.ACTION_LOGOUT");
-        registerReceiver(new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                finish();
-            }
-        }, intentFilter);
-
         viewPager = (ViewPager2) findViewById(R.id.mainViewPager);
         tabLayout = (TabLayout) findViewById(R.id.mainTabLayout);
 

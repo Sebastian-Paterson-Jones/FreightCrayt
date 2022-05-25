@@ -131,6 +131,16 @@ public class DataHelper {
 
     public int getUserItemsLength() { return items.size(); }
 
+    public CollectionItem getUserItem(String itemID) {
+        for(int i=0;i<items.size();i++) {
+            CollectionItem temp = items.get(i);
+            if(temp.itemID.equals(itemID)) {
+                return temp;
+            }
+        }
+        return null;
+    }
+
     public void addUserCategoryItem(String title, String subtitle, String description, String collectionID, @Nullable Bitmap image) {
         String itemID = UUID.randomUUID().toString().replaceAll("_", "");
         CollectionItem item;

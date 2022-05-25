@@ -7,23 +7,25 @@
     tools:context=".activities.ViewItem">
 
     <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="399dp"
+        android:id="@+id/item_detail_Image"
+        android:layout_width="match_parent"
         android:layout_height="408dp"
-        android:layout_marginStart="6dp"
-        android:layout_marginTop="3dp"
+        android:src="@drawable/ic_baseline_camera_alt_24"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_camera" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-        android:layout_width="377dp"
-        android:layout_height="311dp"
-        android:layout_marginStart="14dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:orientation="vertical"
+        android:paddingTop="8dp"
+        android:paddingEnd="16dp"
+        android:paddingStart="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/fragmentContainerView3"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3">
+        app:layout_constraintTop_toBottomOf="@+id/item_detail_Image">
 
         <TextView
             android:id="@+id/textView7"
@@ -32,38 +34,23 @@
             android:text="@string/title_label" />
 
         <TextView
-            android:id="@+id/collectableTitle"
+            android:id="@+id/item_detail_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="SPIDER MAN"
             android:textSize="24sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/textView9"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="GENRE" />
-
-        <TextView
-            android:id="@+id/collectableGenre"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="ADVENTURE"
-            android:textSize="20sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textView11"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="INFO" />
+            android:text="Aquisition date" />
 
         <TextView
-            android:id="@+id/collectableInfo"
+            android:id="@+id/item_detail_aquisitionDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="110 min"
+            android:text="N/A"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -74,41 +61,44 @@
             android:text="@string/description_label" />
 
         <TextView
-            android:id="@+id/textView14"
+            android:id="@+id/item_detail_description"
             android:layout_width="match_parent"
             android:layout_height="90dp"
-            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed interdum, nisl id condimentum pellentesque, libero mauris posuere nisi, sed gravida erat dui id felis. Donec fermentum placerat interdum." />
+            android:layout_weight="1" />
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/button"
-        android:layout_width="54dp"
-        android:layout_height="47dp"
-        android:background="@drawable/circle_image"
-        tools:layout_editor_absoluteX="263dp"
-        tools:layout_editor_absoluteY="357dp" />
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/item_detail_btnEditItem"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="16dp"
+        android:src="@drawable/ic_baseline_edit_24"
+        android:foregroundTint="@color/infoColor"
+        app:civ_border_color="@color/infoColor"
+        app:civ_border_width="2dp"
+        app:layout_constraintBottom_toBottomOf="@+id/item_detail_Image"
+        app:layout_constraintEnd_toStartOf="@+id/item_detail_btnDeleteItem" />
 
-    <ImageView
-        android:id="@+id/button2"
-        android:layout_width="52dp"
-        android:layout_height="46dp"
-        android:background="@drawable/circle_image"
-        tools:layout_editor_absoluteX="326dp"
-        tools:layout_editor_absoluteY="358dp" />
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/item_detail_btnDeleteItem"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:src="@drawable/ic_outline_delete_24"
+        android:tint="@color/errorColor"
+        app:civ_border_color="@color/errorColor"
+        app:civ_border_width="2dp"
+        app:layout_constraintBottom_toBottomOf="@+id/item_detail_Image"
+        app:layout_constraintEnd_toEndOf="@+id/item_detail_Image" />
 
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="39dp"
-        android:layout_height="31dp"
-        app:srcCompat="@drawable/ic_baseline_edit_24"
-        tools:layout_editor_absoluteX="270dp"
-        tools:layout_editor_absoluteY="365dp" />
-
-    <ImageView
-        android:id="@+id/imageView5"
-        android:layout_width="29dp"
-        android:layout_height="31dp"
-        app:srcCompat="@drawable/ic_outline_delete_24"
-        tools:layout_editor_absoluteX="337dp"
-        tools:layout_editor_absoluteY="365dp" />
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerView3"
+        android:name="com.example.freightcrayt.fragments.BottomNav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
