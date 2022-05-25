@@ -2,8 +2,10 @@ package com.example.freightcrayt.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
@@ -66,12 +68,40 @@ public class UserDetail extends AppCompatActivity {
         userEmail.setText(dataHelper.getUserEmail());
         userName.setText(dataHelper.getUsername());
         totalCrates.setText(dataHelper.getUserCategoriesLength() + " Crates");
+        totalItems.setText(DataHelper.getInstance().getUserItemsLength() + " Items");
 
         signOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 FirebaseAuth.getInstance().signOut();
                 IntentHelper.logout(UserDetail.this);
+            }
+        });
+
+        // dialog listener for delete yes no option box
+        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which){
+                    case DialogInterface.BUTTON_POSITIVE:
+                        // TODO: delete user and data
+                        FirebaseAuth.getInstance().signOut();
+                        IntentHelper.logout(UserDetail.this);
+                        break;
+
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        break;
+                }
+            }
+        };
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(UserDetail.this);
+                builder.setMessage("Are you sure you want to delete your account?")
+                        .setPositiveButton("Yes", dialogClickListener)
+                        .setNegativeButton("No", dialogClickListener);
+                builder.show();
             }
         });
     }
