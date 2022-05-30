@@ -85,6 +85,8 @@ tools:context=".activities.add_category">
             >
 
         </TextView>
+
+
         <EditText
             android:layout_width="match_parent"
             android:layout_height="40dp"
@@ -94,6 +96,26 @@ tools:context=".activities.add_category">
             >
 
         </EditText>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="50dp"
+            android:paddingBottom="15dp"
+            android:text="CATEGORY GOAL"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            >
+
+        </TextView>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/custom_input"
+            android:paddingLeft="10dp"
+            android:hint="Category Goal">
+
+            </EditText>
 
         <TextView
             android:layout_width="match_parent"
