@@ -42,6 +42,7 @@
         android:layout_marginTop="11dp"
         android:text="@string/sub_title_label"
         android:textColor="@color/black"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title_textview" />
 
@@ -53,6 +54,7 @@
         android:layout_marginTop="7dp"
         android:text="@string/description_label"
         android:textColor="@color/black"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/category_dropdown" />
 
@@ -64,6 +66,7 @@
         android:layout_marginTop="9dp"
         android:text="@string/category_label"
         android:textColor="@color/black"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sub_title_textview" />
 
@@ -75,26 +78,23 @@
         android:layout_marginTop="15dp"
         android:text="@string/title_label"
         android:textColor="@color/black"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/upload_image_button" />
 
-    <com.google.android.material.textfield.TextInputLayout
+    <EditText
         android:id="@+id/description_textview"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="330dp"
         android:layout_height="80dp"
         android:layout_marginStart="42dp"
         android:layout_marginTop="8dp"
         android:ems="10"
+        android:background="@drawable/custom_input"
+        android:hint="Description of your collectable"
+        android:paddingLeft="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="visible"
-            tools:visibility="visible" />
-    </com.google.android.material.textfield.TextInputLayout>
+    </EditText>
 
     <TextView
         android:id="@+id/textView5"
@@ -104,16 +104,18 @@
         android:layout_marginTop="12dp"
         android:text="@string/custom_description_label"
         android:textColor="@color/black"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/description_textview" />
 
     <Spinner
         android:id="@+id/category_dropdown"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="330dp"
         android:layout_height="24dp"
         android:layout_marginStart="42dp"
         android:layout_marginTop="7dp"
+        android:paddingLeft="10dp"
+        android:hint="Chose the category for your item"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
@@ -123,24 +125,22 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="42dp"
         android:layout_marginTop="21dp"
-        android:background="@drawable/rounded_red_button"
+        android:background="@drawable/discard_button"
         android:text="@string/discard_label"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/add_custom_button" />
 
-    <com.google.android.material.textfield.TextInputLayout
+    <EditText
         android:id="@+id/title_textview"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="330dp"
         android:layout_height="30dp"
         android:layout_marginStart="42dp"
+        android:background="@drawable/custom_input"
+        android:paddingLeft="10dp"
+        android:hint="Title"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </com.google.android.material.textfield.TextInputLayout>
+    </EditText>
 
     <Button
         android:id="@+id/add_custom_button"
@@ -158,19 +158,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
-    <com.google.android.material.textfield.TextInputLayout
+    <EditText
         android:id="@+id/sub_title_textview"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="330dp"
         android:layout_height="30dp"
         android:layout_marginStart="40dp"
+        android:background="@drawable/custom_input"
+        android:hint="Sub-Title"
+        android:paddingLeft="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </com.google.android.material.textfield.TextInputLayout>
+    </EditText>
 
     <Button
         android:id="@+id/add_button"
