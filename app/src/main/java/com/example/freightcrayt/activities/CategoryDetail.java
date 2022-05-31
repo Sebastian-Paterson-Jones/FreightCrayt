@@ -19,23 +19,54 @@ import android.widget.Toast;
 
 import com.example.freightcrayt.R;
 import com.example.freightcrayt.adapters.CategoryItemListAdapter;
+import com.example.freightcrayt.adapters.CategoryListAdapter;
+import com.example.freightcrayt.models.CollectionItem;
 import com.example.freightcrayt.utils.DataHelper;
 import com.example.freightcrayt.utils.IntentHelper;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.util.ArrayList;
+
 public class CategoryDetail extends AppCompatActivity {
 
+    // current collection id
     private String collectionID;
+
+    // fields
     private TextInputEditText searchBox;
     private TextView categoryTitle;
     private TextView categoryNumItems;
     private ImageView addNewItemButton;
-    private FloatingActionButton addNew;
     private ImageView backButton;
-    private ActionMenuItemView accountNav;
-    private BottomAppBar bottomBar;
+
+    // dataHelper instance
+    DataHelper data;
+
+    // grid
+    GridView grid;
+
+    // items array
+    private ArrayList<CollectionItem> items;
+
+    // list adapter
+    CategoryItemListAdapter itemListAdapter;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // set items
+        items = data.getUserCategoryItems(this.collectionID);
+
+        // adapter init
+        itemListAdapter = new CategoryItemListAdapter(CategoryDetail.this, items);
+
+        // assign adapter to gridView
+        grid = (GridView) findViewById(R.id.category_detail_grid);
+        grid.setAdapter(itemListAdapter);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +74,10 @@ public class CategoryDetail extends AppCompatActivity {
         setContentView(R.layout.activity_category_detail);
 
         // create and instantiate dummy data
-        DataHelper data = DataHelper.getInstance();
+        data = DataHelper.getInstance();
+
+        // set the collectionID
+        this.collectionID = getIntent().getStringExtra("extraInfo");
 
         // broadcast to finish activity on logout
         IntentFilter intentFilter = new IntentFilter();
@@ -55,9 +89,6 @@ public class CategoryDetail extends AppCompatActivity {
             }
         }, intentFilter);
 
-        // set the collectionID
-        this.collectionID = getIntent().getStringExtra("extraInfo");
-
         // set the fields
         this.searchBox = (TextInputEditText) findViewById(R.id.category_detail_add_txtBoxSearch);
         this.categoryTitle = (TextView) findViewById(R.id.category_detail_title);
@@ -65,17 +96,9 @@ public class CategoryDetail extends AppCompatActivity {
         this.addNewItemButton = (ImageView) findViewById(R.id.category_detail_add);
         this.backButton = (ImageView) findViewById(R.id.category_detail_backButton);
 
-//        Toast.makeText(this, data.getUserCategory(this.collectionID, this).title, Toast.LENGTH_SHORT).show();
         // Set the header text
         categoryTitle.setText(data.getUserCategory(this.collectionID).title);
         categoryNumItems.setText(String.valueOf(data.getUserCategorySize(this.collectionID)) + " items");
-
-        // adapter init
-        CategoryItemListAdapter itemListAdapter = new CategoryItemListAdapter(CategoryDetail.this, data.getUserCategoryItems(this.collectionID));
-
-        // assign adapter to gridView
-        GridView grid = (GridView) findViewById(R.id.category_detail_grid);
-        grid.setAdapter(itemListAdapter);
 
         // set event listener for search box filtering
         searchBox.addTextChangedListener(new TextWatcher() {

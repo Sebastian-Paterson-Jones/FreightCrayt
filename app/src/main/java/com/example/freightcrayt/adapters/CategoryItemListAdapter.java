@@ -28,6 +28,8 @@ import java.util.ArrayList;
 
 public class CategoryItemListAdapter extends ArrayAdapter<CollectionItem> {
 
+    private ArrayList<CollectionItem> items;
+
     public CategoryItemListAdapter(Context context, ArrayList<CollectionItem> collectionItemArrayList) {
         super(context, R.layout.collection_item_list_item, R.id.collection_item_title, collectionItemArrayList);
     }
@@ -83,9 +85,7 @@ public class CategoryItemListAdapter extends ArrayAdapter<CollectionItem> {
                 switch (which){
                     case DialogInterface.BUTTON_POSITIVE:
                         data.removeUserCategoryItem(item.itemID);
-                        Intent broadcastRefresh = new Intent();
-                        broadcastRefresh.setAction("com.package.ACTION_LOGOUT");
-                        getContext().sendBroadcast(broadcastRefresh);
+                        CategoryItemListAdapter.super.remove(item);
                         break;
 
                     case DialogInterface.BUTTON_NEGATIVE:
@@ -106,6 +106,8 @@ public class CategoryItemListAdapter extends ArrayAdapter<CollectionItem> {
             }
         });
 
+
+        // when item card is clicked
         collectionItemCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -88,12 +88,12 @@ tools:context=".activities.add_category">
 
 
         <EditText
+            android:id="@+id/add_category_name"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:background="@drawable/custom_input"
-            android:paddingLeft="10dp"
             android:hint="Name"
-            >
+            android:paddingLeft="10dp">
 
         </EditText>
 
@@ -108,14 +108,16 @@ tools:context=".activities.add_category">
             >
 
         </TextView>
+
         <EditText
+            android:id="@+id/add_category_goal"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:background="@drawable/custom_input"
-            android:paddingLeft="10dp"
-            android:hint="Category Goal">
+            android:hint="Category Goal"
+            android:paddingLeft="10dp">
 
-            </EditText>
+        </EditText>
 
         <TextView
             android:layout_width="match_parent"
@@ -128,17 +130,19 @@ tools:context=".activities.add_category">
             >
 
         </TextView>
+
         <EditText
 
+            android:id="@+id/add_category_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/custom_input"
+            android:gravity="left"
             android:hint="Description"
-            android:paddingLeft="10dp"
             android:inputType="textMultiLine"
-            android:maxLines="5"
             android:lines="5"
-            android:gravity="left">
+            android:maxLines="5"
+            android:paddingLeft="10dp">
 
         </EditText>
 
@@ -152,7 +156,7 @@ tools:context=".activities.add_category">
                 android:gravity="center">
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/discard_btn"
+                    android:id="@+id/add_category_discard_btn"
                     android:textColor="@color/white"
                     android:background="@drawable/discard_button"
                     android:layout_marginRight="30dp"
@@ -163,7 +167,7 @@ tools:context=".activities.add_category">
 
                 <Button
 
-                    android:id="@+id/add_category_btn"
+                    android:id="@+id/add_category_submit"
                     android:background="@drawable/rounded_button"
                     android:layout_marginLeft="30dp"
                     android:layout_width="130dp"
