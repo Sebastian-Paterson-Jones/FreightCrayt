@@ -55,8 +55,7 @@ public class CategoryListAdapter extends ArrayAdapter<Collection> {
         collectionTitle.setText(item.title);
 
         // set num items
-        collectionCount.setText(String.valueOf(data.getUserCategorySize(item.collectionID)));
-
+        collectionCount.setText(String.valueOf(data.getUserCategorySize(item.collectionID)) + " of " + String.valueOf(data.getUserCategoryGoal(item.collectionID)));
 
         // no handler just yet for redirecting to share activity
         // TODO: set redirect to category share activity

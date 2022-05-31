@@ -26,15 +26,9 @@ public class DataHelper {
 
     // dummy data init
     public DataHelper() {
-        addUserCategory("Moviez and stuff", "my movies");
-        addUserCategory("games", "my games");
-        addUserCategory("watches", "my watches");
-        addUserCategory("watches", "my watches");
-        addUserCategory("watches", "my watches");
-        addUserCategory("watches", "my watches");
-        addUserCategory("watches", "my watches");
-        addUserCategory("watches", "my watches");
-        addUserCategory("watches", "my watches");
+        addUserCategory("Moviez and stuff", 2, "my movies");
+        addUserCategory("games", 3,"my games");
+        addUserCategory("watches", 4,"my watches");
 
         String collection1ID = collections.get(0).collectionID;
         String collection2ID = collections.get(1).collectionID;
@@ -113,9 +107,20 @@ public class DataHelper {
         return count;
     }
 
-    public void addUserCategory(String title, String description) {
+    public int getUserCategoryGoal(String collectionID) {
+        for(int index = 0; index < items.size(); index++) {
+            if(collections.get(index).collectionID.equals(collectionID)) {
+                return collections.get(index).goal;
+            } else {
+                continue;
+            }
+        }
+        return 0;
+    }
+
+    public void addUserCategory(String title, int goal, String description) {
         String collectionID = UUID.randomUUID().toString().replaceAll("_", "");
-        Collection newCollection = new Collection(title, description, collectionID);
+        Collection newCollection = new Collection(title, goal, description, collectionID);
         collections.add(newCollection);
     }
 
