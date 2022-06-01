@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.freightcrayt.utils.IntentHelper;
@@ -32,6 +33,7 @@ public class RegisterFragment extends Fragment {
     private TextInputLayout userName;
     private TextInputLayout email;
     private TextInputLayout password;
+    private ProgressBar loader;
 
     // sign-up button
     private Button signUpButton;
@@ -62,6 +64,10 @@ public class RegisterFragment extends Fragment {
         userName = (TextInputLayout) view.findViewById(R.id.register_textBoxName);
         email = (TextInputLayout) view.findViewById(R.id.register_textBoxEmail);
         password = (TextInputLayout) view.findViewById(R.id.register_textBoxPassword);
+        loader = (ProgressBar) view.findViewById(R.id.fragment_register_loader);
+
+        // hide loader
+        loader.setVisibility(View.GONE);
 
         // Initialise button
         signUpButton = (Button) view.findViewById(R.id.register_button);
@@ -73,6 +79,9 @@ public class RegisterFragment extends Fragment {
                 email.setError(null);
                 password.setError(null);
                 userName.setError(null);
+
+                // show loader
+                loader.setVisibility(View.VISIBLE);
 
                 String userEmail = email.getEditText().getText().toString();
                 String userPassword = password.getEditText().getText().toString();
@@ -88,6 +97,9 @@ public class RegisterFragment extends Fragment {
                     if(username.isEmpty()) {
                         userName.setError("Username cannot be empty");
                     }
+
+                    // hide loader
+                    loader.setVisibility(View.GONE);
                     return;
                 }
 
@@ -98,6 +110,10 @@ public class RegisterFragment extends Fragment {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     setUserName(username);
+
+                                    // hide loader
+                                    loader.setVisibility(View.GONE);
+
                                     IntentHelper.openIntent(getContext(), "Login", MainActivity.class);
                                 } else {
                                     // Handle Exception types
@@ -142,6 +158,9 @@ public class RegisterFragment extends Fragment {
             else if(code.equals("ERROR_WEAK_PASSWORD")) {
                 password.setError("Password is too weak");
             }
+
+            // hide loader
+            loader.setVisibility(View.GONE);
 
             return;
         }

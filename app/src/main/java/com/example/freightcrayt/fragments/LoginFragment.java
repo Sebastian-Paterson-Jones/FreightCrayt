@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.freightcrayt.utils.DataHelper;
@@ -33,6 +34,7 @@ public class LoginFragment extends Fragment {
     // Form fields
     private TextInputLayout email;
     private TextInputLayout password;
+    private ProgressBar loader;
 
     // sign-in button
     private Button signInButton;
@@ -62,6 +64,10 @@ public class LoginFragment extends Fragment {
         // Initialise fields
         email = (TextInputLayout) view.findViewById(R.id.login_textBoxEmail);
         password = (TextInputLayout) view.findViewById(R.id.login_textBoxPassword);
+        loader = (ProgressBar) view.findViewById(R.id.fragment_login_progress_bar);
+
+        // hide loader
+        loader.setVisibility(View.GONE);
 
         // Initialise button
         signInButton = view.findViewById(R.id.login_button);
@@ -70,6 +76,9 @@ public class LoginFragment extends Fragment {
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                // hide loader
+                loader.setVisibility(View.VISIBLE);
 
                 // remove error messages
                 email.setError(null);
@@ -80,13 +89,15 @@ public class LoginFragment extends Fragment {
 
                 // check if fields are empty
                 if(userEmail.isEmpty() || userPassword.isEmpty()) {
+                    // hide loader
+                    loader.setVisibility(View.GONE);
+
                     if(userEmail.isEmpty()) {
                         email.setError("Email cannot be empty");
                     }
                     if(userPassword.isEmpty()) {
                         password.setError("Password cannot be empty");
                     }
-
                     return;
                 }
 
@@ -98,10 +109,13 @@ public class LoginFragment extends Fragment {
                                 if (task.isSuccessful()) {
                                     // Sign in success, redirect to collections page
                                     IntentHelper.openIntent(getContext(), "Login", MainActivity.class);
+                                    // hide loader
+                                    loader.setVisibility(View.GONE);
 
                                 } else {
                                     // If sign in fails, display a message
                                     handleException(task.getException());
+                                    loader.setVisibility(View.GONE);
                                 }
                             }
                         });
