@@ -47,6 +47,9 @@
         <activity
             android:name=".activities.add_new"
             android:exported="false" />
+        <activity
+            android:name=".activities.AddItem"
+            android:exported="false"/>
     </application>
 
 </manifest>
