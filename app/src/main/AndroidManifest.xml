@@ -2,6 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.freightcrayt">
 
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-feature
+        android:name="android.hardware.camera.autofocus"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -47,6 +55,9 @@
         <activity
             android:name=".activities.add_new"
             android:exported="false" />
+        <activity
+            android:name=".activities.AddItem"
+            android:exported="false"/>
     </application>
 
 </manifest>

@@ -60,6 +60,9 @@ public class CategoryDetail extends AppCompatActivity {
         // set items
         items = data.getUserCategoryItems(this.collectionID);
 
+        // update num items title
+        categoryNumItems.setText(String.valueOf(items.size()) + " of " + data.getUserCategoryGoal(collectionID) + " items");
+
         // adapter init
         itemListAdapter = new CategoryItemListAdapter(CategoryDetail.this, items);
 
@@ -98,7 +101,6 @@ public class CategoryDetail extends AppCompatActivity {
 
         // Set the header text
         categoryTitle.setText(data.getUserCategory(this.collectionID).title);
-        categoryNumItems.setText(String.valueOf(data.getUserCategorySize(this.collectionID)) + " items");
 
         // set event listener for search box filtering
         searchBox.addTextChangedListener(new TextWatcher() {
