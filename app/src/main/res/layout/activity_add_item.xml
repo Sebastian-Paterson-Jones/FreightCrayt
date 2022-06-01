@@ -9,7 +9,7 @@
     <ImageView
         android:id="@+id/item_add_Image"
         android:layout_width="410dp"
-        android:layout_height="342dp"
+        android:layout_height="300dp"
         android:layout_marginStart="2dp"
         android:src="@drawable/ic_baseline_camera_alt_24"
         app:layout_constraintEnd_toEndOf="parent"
@@ -48,20 +48,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="42dp"
-        android:text="@string/sub_title_label"
+        android:layout_marginTop="8dp"
+        android:text="DATE OF ACQUISITION"
         android:textColor="@color/black"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title_textview" />
 
     <EditText
-        android:id="@+id/sub_title_textview"
+        android:id="@+id/date_textview"
         android:layout_width="330dp"
-        android:layout_height="30dp"
+        android:layout_height="45dp"
         android:layout_marginStart="42dp"
         android:layout_marginEnd="43dp"
-        android:background="@drawable/custom_input"
-        android:hint="Sub-Title"
+        android:hint="Date"
+        android:inputType="date"
         android:paddingLeft="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -72,16 +73,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="42dp"
+        android:layout_marginTop="8dp"
         android:text="@string/category_label"
         android:textColor="@color/black"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sub_title_textview" />
+        app:layout_constraintTop_toBottomOf="@+id/date_textview" />
 
     <Spinner
         android:id="@+id/category_dropdown"
         android:layout_width="330dp"
-        android:layout_height="24dp"
+        android:layout_height="45dp"
         android:layout_marginStart="42dp"
         android:layout_marginEnd="43dp"
         android:hint="Choose a category"
@@ -95,6 +97,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="42dp"
+        android:layout_marginTop="8dp"
         android:text="@string/description_label"
         android:textColor="@color/black"
         android:textStyle="bold"
@@ -118,30 +121,30 @@
         android:id="@+id/discard_button"
         android:layout_width="130dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:layout_marginEnd="43dp"
+        android:layout_marginBottom="32dp"
         android:background="@drawable/discard_button"
         android:text="@string/discard_label"
         android:textColor="@color/white"
         android:textSize="12dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/description_textview" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/add_button"
         android:layout_width="130dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="42dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="43dp"
+        android:layout_marginBottom="32dp"
         android:background="@drawable/rounded_button"
         android:text="@string/add_label"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/description_textview" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/item_add_btn"
-        android:layout_width="32dp"
-        android:layout_height="30dp"
+        android:id="@+id/item_add_image_btn"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_marginEnd="40dp"
         android:layout_marginBottom="16dp"
         android:foregroundTint="@color/infoColor"

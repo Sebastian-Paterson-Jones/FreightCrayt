@@ -55,7 +55,7 @@
         app:layout_constraintTop_toBottomOf="@+id/title_textview" />
 
     <EditText
-        android:id="@+id/sub_title_textview"
+        android:id="@+id/date_textview"
         android:layout_width="330dp"
         android:layout_height="30dp"
         android:layout_marginStart="42dp"
@@ -76,7 +76,7 @@
         android:textColor="@color/black"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sub_title_textview" />
+        app:layout_constraintTop_toBottomOf="@+id/date_textview" />
 
     <Spinner
         android:id="@+id/category_dropdown"
