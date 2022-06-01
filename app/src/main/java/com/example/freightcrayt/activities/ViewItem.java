@@ -87,9 +87,7 @@ public class ViewItem extends AppCompatActivity {
                 switch (which){
                     case DialogInterface.BUTTON_POSITIVE:
                         data.removeUserCategoryItem(itemID);
-                        Intent broadcastRefresh = new Intent();
-                        broadcastRefresh.setAction("com.package.ACTION_LOGOUT");
-                        sendBroadcast(broadcastRefresh);
+                        finish();
                         break;
 
                     case DialogInterface.BUTTON_NEGATIVE:
