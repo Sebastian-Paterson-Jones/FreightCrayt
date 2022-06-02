@@ -165,4 +165,15 @@ public class DataHelper {
         }
     }
 
+    public void updateUserCategoryItem(String title, String subtitle, String description, String collectionID, @Nullable Bitmap image) {
+        String itemID = UUID.randomUUID().toString().replaceAll("_", "");
+        CollectionItem item;
+        if(image == null) {
+            item = new CollectionItem(title, subtitle, description, collectionID, itemID);
+        } else {
+            item = new CollectionItem(title, subtitle, description, collectionID, image, itemID);
+        }
+        items.add(item);
+    }
+
 }

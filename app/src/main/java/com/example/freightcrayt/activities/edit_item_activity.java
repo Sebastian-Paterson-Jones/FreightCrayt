@@ -161,7 +161,7 @@ public class edit_item_activity extends AppCompatActivity {
                 String description = itemDescription.getText().toString();
 
                 if(isValidFields()) {
-                    data.addUserCategoryItem(title, dateOfAcquisition, description, collection.collectionID, image);
+                    data.updateUserCategoryItem(title, dateOfAcquisition, description, collection.collectionID, image);
                     finish();
                 }
             }
