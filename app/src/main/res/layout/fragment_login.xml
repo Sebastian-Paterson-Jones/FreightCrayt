@@ -73,12 +73,12 @@
             android:hint="Password"
             android:minHeight="48dp"
             app:endIconMode="password_toggle"
-            app:passwordToggleEnabled="true"
             app:startIconContentDescription="Password"
             app:startIconDrawable="@drawable/ic_baseline_lock_24"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:inputType="textPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
