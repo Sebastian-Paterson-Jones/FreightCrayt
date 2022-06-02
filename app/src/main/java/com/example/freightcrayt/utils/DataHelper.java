@@ -27,23 +27,12 @@ public class DataHelper {
     // dummy data init
     public DataHelper() {
         addUserCategory("Moviez and stuff", 2, "my movies");
-        addUserCategory("games", 3,"my games");
-        addUserCategory("watches", 4,"my watches");
 
         String collection1ID = collections.get(0).collectionID;
-        String collection2ID = collections.get(1).collectionID;
-        String collection3ID = collections.get(2).collectionID;
 
         addUserCategoryItem("Starwars", "1", "good movie", collection1ID, null);
         addUserCategoryItem("Martian on the moon", "2", "vrey nice good movie", collection1ID, null);
         addUserCategoryItem("Starwasdars", "1qwerty", "nice nice", collection1ID, null);
-
-        addUserCategoryItem("peroposad", "the cat in the hat", "good movie", collection2ID, null);
-        addUserCategoryItem("Starwadjasars", "kerbla", "good movie", collection2ID, null);
-
-        addUserCategoryItem("Sasdtarwars", "asd", "good movie", collection3ID, null);
-        addUserCategoryItem("Starwasdars", "1qwerty", "nice nice", collection3ID, null);
-
     }
 
     // static method for getting single instance
