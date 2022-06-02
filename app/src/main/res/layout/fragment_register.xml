@@ -72,6 +72,7 @@
         app:startIconDrawable="@drawable/ic_baseline_lock_24"
         app:startIconContentDescription="Password"
         app:endIconMode="password_toggle"
+        app:passwordToggleEnabled="true"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
