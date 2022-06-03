@@ -24,17 +24,6 @@ public class DataHelper {
     // User items
     private static ArrayList<CollectionItem> items = new ArrayList<CollectionItem>();
 
-    // dummy data init
-    public DataHelper() {
-        addUserCategory("Moviez and stuff", 2, "my movies");
-
-        String collection1ID = collections.get(0).collectionID;
-
-        addUserCategoryItem("Starwars", "1", "good movie", collection1ID, null);
-        addUserCategoryItem("Martian on the moon", "2", "vrey nice good movie", collection1ID, null);
-        addUserCategoryItem("Starwasdars", "1qwerty", "nice nice", collection1ID, null);
-    }
-
     // static method for getting single instance
     public static DataHelper getInstance()
     {
@@ -60,10 +49,18 @@ public class DataHelper {
     }
 
     public ArrayList<Collection> getUserCategories() {
-        return collections;
+        ArrayList<Collection> userCollections = new ArrayList<Collection>();
+        for(int index = 0; index < collections.size(); index++) {
+            if(collections.get(index).userID.equals(getUserID())) {
+                userCollections.add(collections.get(index));
+            }
+        }
+        return userCollections;
     }
 
-    public int getUserCategoriesLength() { return collections.size(); }
+    public int getUserCategoriesLength() {
+        return getUserCategories().size();
+    }
 
     public ArrayList<CollectionItem> getUserCategoryItems(String collectionID) {
         ArrayList<CollectionItem> categoryItems = new ArrayList<CollectionItem>();
@@ -109,7 +106,7 @@ public class DataHelper {
 
     public void addUserCategory(String title, int goal, String description) {
         String collectionID = UUID.randomUUID().toString().replaceAll("_", "");
-        Collection newCollection = new Collection(title, goal, description, collectionID);
+        Collection newCollection = new Collection(title, goal, description, collectionID, getUserID());
         collections.add(newCollection);
     }
 
