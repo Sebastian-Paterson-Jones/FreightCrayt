@@ -34,6 +34,7 @@ public class UserDetail extends AppCompatActivity {
     private TextView totalCrates;
     private TextView totalItems;
     private Button signOut;
+    private Button analyticsButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +57,7 @@ public class UserDetail extends AppCompatActivity {
         userName = (TextView) findViewById(R.id.user_txtboxUsername);
         updateButton = (Button) findViewById(R.id.user_btnUpdate);
         deleteButton = (Button) findViewById(R.id.user_btnDelete);
+        analyticsButton = (Button) findViewById(R.id.user_btnAnalyticsTest);
         totalCrates = (TextView) findViewById(R.id.user_totalCrates);
         totalItems = (TextView) findViewById(R.id.user_totalItems);
         signOut = (Button) findViewById(R.id.user_signOut);
@@ -99,6 +101,12 @@ public class UserDetail extends AppCompatActivity {
                         .setPositiveButton("Yes", dialogClickListener)
                         .setNegativeButton("No", dialogClickListener);
                 builder.show();
+            }
+        });
+        analyticsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                IntentHelper.openIntent(UserDetail.this, "Analytics", Analytics.class);
             }
         });
     }

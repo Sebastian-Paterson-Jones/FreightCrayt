@@ -195,6 +195,23 @@
                 android:text="@string/sign_out_button" />
         </LinearLayout>
 
+        <Button
+            android:id="@+id/user_btnAnalyticsTest"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="59dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginBottom="25dp"
+            android:layout_weight="1"
+            android:background="@drawable/rounded_button"
+            android:maxWidth="250px"
+            android:text="Analytics"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.fragment.app.FragmentContainerView
