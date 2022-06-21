@@ -47,7 +47,7 @@ public class add_new extends AppCompatActivity {
         btnAddItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                IntentHelper.openIntent(add_new.this, null, AddItem.class);
+                IntentHelper.openIntent(add_new.this, "", AddItem.class);
             }
         });
     }

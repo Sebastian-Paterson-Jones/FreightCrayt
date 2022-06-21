@@ -17,6 +17,15 @@ public class IntentHelper {
         context.startActivity(i);
     }
 
+    public static void openIntent(Context context, Bundle extraDetails, Class passTo) {
+
+        Intent i = new Intent(context, passTo);
+
+        i.putExtras(extraDetails);
+
+        context.startActivity(i);
+    }
+
     public static void shareIntent(Context context, String extraDetails) {
 
         Intent sendIntent = new Intent();

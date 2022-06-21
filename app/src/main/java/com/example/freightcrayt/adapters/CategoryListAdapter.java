@@ -1,6 +1,7 @@
 package com.example.freightcrayt.adapters;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,20 +46,16 @@ public class CategoryListAdapter extends ArrayAdapter<Collection> {
         MaterialButton editButton = (MaterialButton) convertView.findViewById(R.id.personal_collectionItemEdit);
         LinearLayout container = (LinearLayout) convertView.findViewById(R.id.personal_listContainer);
 
-        // data instance
-        DataHelper data = DataHelper.getInstance();
-
         // default image cuz items don't have images as of yet
         collectionImage.setImageResource(R.drawable.ic_baseline_person_24);
 
         // set the title
-        collectionTitle.setText(item.title);
+        collectionTitle.setText(item.getTitle());
 
         // set num items
-        collectionCount.setText(String.valueOf(data.getUserCategorySize(item.collectionID)) + " of " + String.valueOf(data.getUserCategoryGoal(item.collectionID)));
+        collectionCount.setText(String.valueOf(item.getSize()) + " of " + String.valueOf(item.getGoal()));
 
-        // no handler just yet for redirecting to share activity
-        // TODO: set redirect to category share activity
+        // collaboration activity
         shareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -79,7 +76,13 @@ public class CategoryListAdapter extends ArrayAdapter<Collection> {
         container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                IntentHelper.openIntent(getContext(), item.collectionID, CategoryDetail.class);
+                Bundle intentBundle = new Bundle();
+                intentBundle.putString("collectionID", item.getCollectionID());
+                intentBundle.putString("title", item.getTitle());
+                intentBundle.putString("description", item.getDescription());
+                intentBundle.putInt("goal", item.getGoal());
+                intentBundle.putInt("size", item.getSize());
+                IntentHelper.openIntent(getContext(), intentBundle, CategoryDetail.class);
             }
         });
 

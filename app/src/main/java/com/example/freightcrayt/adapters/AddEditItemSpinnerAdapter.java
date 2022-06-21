@@ -39,7 +39,7 @@ public class AddEditItemSpinnerAdapter extends ArrayAdapter<Collection> {
         LinearLayout container = (LinearLayout) convertView.findViewById(R.id.spinner_item);
 
         // set the title
-        title.setText(item.title);
+        title.setText(item.getTitle());
 
         return super.getView(position, convertView, parent);
     }

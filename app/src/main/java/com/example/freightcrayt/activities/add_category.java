@@ -46,9 +46,6 @@ public class add_category extends AppCompatActivity {
             }
         }, intentFilter);
 
-        // init data helper
-        data = DataHelper.getInstance();
-
         // set fields
         categoryName = findViewById(R.id.add_category_name);
         categoryGoal = findViewById(R.id.add_category_goal);
@@ -91,7 +88,7 @@ public class add_category extends AppCompatActivity {
                     int goal = Integer.parseInt(categoryGoal.getText().toString());
                     String description = categoryDescription.getText().toString();
 
-                    data.addUserCategory(name, goal, description);
+                    DataHelper.addUserCategory(name, goal, description);
                     IntentHelper.openIntent(add_category.this, "Item Created", MainActivity.class);
                 }
             }

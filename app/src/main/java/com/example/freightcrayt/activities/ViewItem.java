@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,11 +23,13 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ViewItem extends AppCompatActivity {
 
-    // Data helper for getting user credentials
-    DataHelper data;
-
-    // Item ID
+    // Item fields
     private String itemID;
+    private String itemTitleText;
+    private String itemAcquisitionDatetext;
+    private String itemDescriptionText;
+    private String itemCollectionID;
+    private int itemCollectionSize;
 
     // fields
     ImageView itemImage;
@@ -51,11 +54,14 @@ public class ViewItem extends AppCompatActivity {
             }
         }, intentFilter);
 
-        // initiate dataHelper
-        data = DataHelper.getInstance();
+        // set the fields
+        this.itemID = getIntent().getExtras().getString("itemID");
+        this.itemTitleText = getIntent().getExtras().getString("title");
+        this.itemAcquisitionDatetext = getIntent().getExtras().getString("acquisitionDate");
+        this.itemDescriptionText = getIntent().getExtras().getString("description");
+        this.itemCollectionID = getIntent().getExtras().getString("collectionID");
+        this.itemCollectionSize = getIntent().getExtras().getInt("collectionSize");
 
-        // set the itemID
-        this.itemID = getIntent().getStringExtra("extraInfo");
 
         // init fields
         itemImage = (ImageView) findViewById(R.id.item_detail_Image);
@@ -65,20 +71,18 @@ public class ViewItem extends AppCompatActivity {
         editButton = (CircleImageView) findViewById(R.id.item_detail_btnEditItem);
         deleteButton = (CircleImageView) findViewById(R.id.item_detail_btnDeleteItem);
 
-        // get item model
-        CollectionItem currentItem = data.getUserItem(itemID);
 
-        // set the item image
-        this.itemImage.setImageBitmap(currentItem.image);
+        // set the item image TODO: make this possible
+//        this.itemImage.setImageBitmap(currentItem.image);
 
         // set text title
-        this.itemTitle.setText(currentItem.title);
+        this.itemTitle.setText(this.itemTitleText);
 
         // set text acquisition date
-        this.itemAcquisition.setText(currentItem.acquisitionDate);
+        this.itemAcquisition.setText(itemAcquisitionDatetext);
 
         // set the description
-        this.itemDescription.setText(currentItem.description);
+        this.itemDescription.setText(itemDescriptionText);
 
         // dialog listener for delete yes no option box
         DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
@@ -86,7 +90,7 @@ public class ViewItem extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 switch (which){
                     case DialogInterface.BUTTON_POSITIVE:
-                        data.removeUserCategoryItem(itemID);
+                        DataHelper.removeCategoryItem(itemCollectionID, itemCollectionSize, itemID);
                         finish();
                         break;
 
@@ -110,7 +114,13 @@ public class ViewItem extends AppCompatActivity {
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                IntentHelper.openIntent(ViewItem.this, itemID, edit_item_activity.class);
+                Bundle itemBundle = new Bundle();
+                itemBundle.putString("title", itemTitleText);
+                itemBundle.putString("acquisitionDate", itemAcquisitionDatetext);
+                itemBundle.putString("description", itemDescriptionText);
+                itemBundle.putString("itemID", itemID);
+                itemBundle.putString("collectionID", itemCollectionID);
+                IntentHelper.openIntent(ViewItem.this, itemBundle, edit_item_activity.class);
             }
         });
     }

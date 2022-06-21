@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,10 +30,11 @@ import java.util.ArrayList;
 
 public class CategoryItemListAdapter extends ArrayAdapter<CollectionItem> {
 
-    private ArrayList<CollectionItem> items;
+    int collectionSize;
 
-    public CategoryItemListAdapter(Context context, ArrayList<CollectionItem> collectionItemArrayList) {
+    public CategoryItemListAdapter(Context context, ArrayList<CollectionItem> collectionItemArrayList, int collectionSize) {
         super(context, R.layout.collection_item_list_item, R.id.collection_item_title, collectionItemArrayList);
+        this.collectionSize = collectionSize;
     }
 
     @NonNull
@@ -52,29 +55,31 @@ public class CategoryItemListAdapter extends ArrayAdapter<CollectionItem> {
         MaterialButton editButton = (MaterialButton) convertView.findViewById(R.id.collection_item_btnEdit);
         MaterialButton deleteButton = (MaterialButton) convertView.findViewById(R.id.collection_item_btnDelete);
 
-        // data instance
-        DataHelper data = DataHelper.getInstance();
-
         // set image
-        if(item.image != null) {
-            collectionItemImage.setImageBitmap(item.image);
+        if(item.getImage() != null) {
+            collectionItemImage.setImageBitmap(item.getImage());
         }
 
         // set the title
-        collectionItemTitle.setText(item.title);
+        collectionItemTitle.setText(item.getTitle());
 
         // set subtitle
-        collectionItemSubtitle.setText(item.acquisitionDate);
+        collectionItemSubtitle.setText(item.getAcquisitionDate());
 
         // set description
-        collectionItemDescription.setText(item.description);
-
+        collectionItemDescription.setText(item.getDescription());
 
         // no handler just yet for redirecting to share activity
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                IntentHelper.openIntent(getContext(), item.itemID, edit_item_activity.class);
+                Bundle itemBundle = new Bundle();
+                itemBundle.putString("title", item.getTitle());
+                itemBundle.putString("acquisitionDate", item.getAcquisitionDate());
+                itemBundle.putString("description", item.getDescription());
+                itemBundle.putString("itemID", item.getItemID());
+                itemBundle.putString("collectionID", item.getCollectionID());
+                IntentHelper.openIntent(getContext(), itemBundle, edit_item_activity.class);
             }
         });
 
@@ -84,7 +89,7 @@ public class CategoryItemListAdapter extends ArrayAdapter<CollectionItem> {
             public void onClick(DialogInterface dialog, int which) {
                 switch (which){
                     case DialogInterface.BUTTON_POSITIVE:
-                        data.removeUserCategoryItem(item.itemID);
+                        DataHelper.removeCategoryItem(item.getCollectionID(), collectionSize, item.getItemID());
                         CategoryItemListAdapter.super.remove(item);
                         break;
 
@@ -111,7 +116,14 @@ public class CategoryItemListAdapter extends ArrayAdapter<CollectionItem> {
         collectionItemCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                IntentHelper.openIntent(getContext(), item.itemID, ViewItem.class);
+                Bundle itemBundle = new Bundle();
+                itemBundle.putString("title", item.getTitle());
+                itemBundle.putString("acquisitionDate", item.getAcquisitionDate());
+                itemBundle.putString("description", item.getDescription());
+                itemBundle.putString("itemID", item.getItemID());
+                itemBundle.putString("collectionID", item.getCollectionID());
+                itemBundle.putInt("collectionSize", collectionSize);
+                IntentHelper.openIntent(getContext(), itemBundle, ViewItem.class);
             }
         });
 

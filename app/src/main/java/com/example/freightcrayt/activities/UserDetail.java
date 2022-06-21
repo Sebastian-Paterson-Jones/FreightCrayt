@@ -50,9 +50,6 @@ public class UserDetail extends AppCompatActivity {
             }
         }, intentFilter);
 
-        // initiate dataHelper
-        dataHelper = DataHelper.getInstance();
-
         // initiate fields
         userImage = (ImageView) findViewById(R.id.user_userImage);
         userEmail = (TextView) findViewById(R.id.user_txtboxEmail);
@@ -67,8 +64,8 @@ public class UserDetail extends AppCompatActivity {
         userImage.setImageResource(R.drawable.ic_baseline_person_24);
         userEmail.setText(dataHelper.getUserEmail());
         userName.setText(dataHelper.getUsername());
-        totalCrates.setText(dataHelper.getUserCategoriesLength() + " Crates");
-        totalItems.setText(DataHelper.getInstance().getUserItemsLength() + " Items");
+        totalCrates.setText("0" + " Crates");
+        totalItems.setText("0" + " Items");
 
         signOut.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,154 +1,168 @@
 package com.example.freightcrayt.utils;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.example.freightcrayt.activities.MainActivity;
+import com.example.freightcrayt.activities.AddItem;
 import com.example.freightcrayt.models.Collection;
 import com.example.freightcrayt.models.CollectionItem;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.UUID;
 import java.util.ArrayList;
 
 public class DataHelper {
 
-    // Singleton instance for holding persistent data in prototype
-    private static DataHelper singleton_instance = null;
-
-    // User collections
-    private static ArrayList<Collection> collections = new ArrayList<Collection>();
-
-    // User items
-    private static ArrayList<CollectionItem> items = new ArrayList<CollectionItem>();
-
-    // static method for getting single instance
-    public static DataHelper getInstance()
-    {
-        if (singleton_instance == null)
-            singleton_instance = new DataHelper();
-
-        return singleton_instance;
-    }
-
-    public String getUsername() {
+    public static String getUsername() {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         return mAuth.getCurrentUser().getDisplayName();
     }
 
-    public String getUserEmail() {
+    public static String getUserEmail() {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         return mAuth.getCurrentUser().getEmail();
     }
 
-    public String getUserID() {
+    public static String getUserID() {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         return mAuth.getCurrentUser().getUid();
     }
 
-    public ArrayList<Collection> getUserCategories() {
-        ArrayList<Collection> userCollections = new ArrayList<Collection>();
-        for(int index = 0; index < collections.size(); index++) {
-            if(collections.get(index).userID.equals(getUserID())) {
-                userCollections.add(collections.get(index));
+    public static boolean addUserCategory(String title, int goal, String description) {
+        FirebaseDatabase db = FirebaseDatabase.getInstance();
+        String currentUserID = getUserID();
+        final boolean[] res = {true};
+
+        // save category to categories collection
+        DatabaseReference categoryRef = db.getReference("Categories").push();
+        Collection newCollection = new Collection(title, goal, description, categoryRef.getKey());
+        categoryRef.setValue(newCollection, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                if(error != null) {
+                    res[0] = false;
+                }
             }
+        });
+
+        if(!res[0]) {
+            return res[0];
         }
-        return userCollections;
-    }
 
-    public int getUserCategoriesLength() {
-        return getUserCategories().size();
-    }
-
-    public ArrayList<CollectionItem> getUserCategoryItems(String collectionID) {
-        ArrayList<CollectionItem> categoryItems = new ArrayList<CollectionItem>();
-        for(int index = 0; index < items.size(); index++) {
-            if(items.get(index).collectionID.equals(collectionID)) {
-                categoryItems.add(items.get(index));
+        // save category to categories collection
+        DatabaseReference userCollectionsRef = db.getReference("UserCategories/" + getUserID()).push();
+        userCollectionsRef.setValue(categoryRef.getKey(), new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                if(error != null) {
+                    res[0] = false;
+                }
             }
-        }
-        return categoryItems;
+        });
+
+        return res[0];
     }
-    
-    public Collection getUserCategory(String collectionID) {
-        for(int index = 0; index < collections.size(); index++) {
-            if(collections.get(index).collectionID.equals(collectionID)) {
-                return collections.get(index);
+
+    public static boolean removeCategory(String collectionID) {
+        FirebaseDatabase db = FirebaseDatabase.getInstance();
+        final boolean[] res = {true};
+
+        DatabaseReference categoryRef = db.getReference("Categories");
+        categoryRef.child(collectionID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                snapshot.getRef().removeValue();
             }
-        }
-        return null;
-    }
 
-    public int getUserCategorySize(String collectionID) {
-        int count = 0;
-        for(int index = 0; index < items.size(); index++) {
-            if(items.get(index).collectionID.equals(collectionID)) {
-                count += 1;
-            } else {
-                continue;
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                res[0] = false;
             }
-        }
-        return count;
+        });
+
+        return res[0];
     }
 
-    public int getUserCategoryGoal(String collectionID) {
-        for(int index = 0; index < items.size(); index++) {
-            if(collections.get(index).collectionID.equals(collectionID)) {
-                return collections.get(index).goal;
-            } else {
-                continue;
+    public static boolean addCategoryItem(String title, String acquisitionDate, String description, String collectionID, @Nullable Bitmap image, int collectionSize) {
+        FirebaseDatabase db = FirebaseDatabase.getInstance();
+        final boolean[] res = {true};
+
+        // save item to collection
+        DatabaseReference itemsRef = db.getReference("Items").push();
+        CollectionItem newCollection = new CollectionItem(title, acquisitionDate, description, collectionID, image, itemsRef.getKey());
+        itemsRef.setValue(newCollection, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                if(error != null) {
+                    res[0] = false;
+                }
             }
+        });
+
+        if(!res[0]) {
+            return res[0];
         }
-        return 0;
+
+        incrementCollectionSize(collectionID, collectionSize);
+
+        return res[0];
     }
 
-    public void addUserCategory(String title, int goal, String description) {
-        String collectionID = UUID.randomUUID().toString().replaceAll("_", "");
-        Collection newCollection = new Collection(title, goal, description, collectionID, getUserID());
-        collections.add(newCollection);
-    }
+    public static boolean editCategoryItem(CollectionItem item) {
+        FirebaseDatabase db = FirebaseDatabase.getInstance();
+        final boolean[] res = {true};
 
-    public void removeUserCategory(String collectionID) {
-        for(int index = 0; index < collections.size(); index++) {
-            if(collections.get(index).collectionID.equals(collectionID)) {
-                collections.remove(index);
+        DatabaseReference categoryRef = db.getReference("Items").child(item.getItemID());
+        categoryRef.setValue(item, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                if(error != null) {
+                    res[0] = false;
+                }
             }
-        }
+        });
+
+        return res[0];
     }
 
-    public ArrayList<CollectionItem> getUserItems() { return items; }
+    public static boolean removeCategoryItem(String collectionID, int collectionSize, String itemID) {
+        FirebaseDatabase db = FirebaseDatabase.getInstance();
+        final boolean[] res = {true};
 
-    public int getUserItemsLength() { return items.size(); }
-
-    public CollectionItem getUserItem(String itemID) {
-        for(int i=0;i<items.size();i++) {
-            CollectionItem temp = items.get(i);
-            if(temp.itemID.equals(itemID)) {
-                return temp;
+        DatabaseReference categoryRef = db.getReference("Items");
+        categoryRef.child(itemID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                snapshot.getRef().removeValue();
+                decrementCollectionSize(collectionID, collectionSize);
             }
-        }
-        return null;
-    }
 
-    public void addUserCategoryItem(String title, String subtitle, String description, String collectionID, @Nullable Bitmap image) {
-        String itemID = UUID.randomUUID().toString().replaceAll("_", "");
-        CollectionItem item;
-        if(image == null) {
-             item = new CollectionItem(title, subtitle, description, collectionID, itemID);
-        } else {
-            item = new CollectionItem(title, subtitle, description, collectionID, image, itemID);
-        }
-        items.add(item);
-    }
-
-    public void removeUserCategoryItem(String itemID) {
-        for(int index = 0; index < items.size(); index++) {
-            if(items.get(index).itemID.equals(itemID)) {
-                items.remove(index);
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                res[0] = false;
             }
-        }
+        });
+
+        return res[0];
     }
 
+    public static void incrementCollectionSize(String collectionID, int collectionSize) {
+        FirebaseDatabase db = FirebaseDatabase.getInstance();
+        db.getReference("Categories").child(collectionID).child("size").setValue(collectionSize + 1);
+    }
+
+    public static void decrementCollectionSize(String collectionID, int collectionSize) {
+        FirebaseDatabase db = FirebaseDatabase.getInstance();
+        db.getReference("Categories").child(collectionID).child("size").setValue(collectionSize - 1);
+    }
 }

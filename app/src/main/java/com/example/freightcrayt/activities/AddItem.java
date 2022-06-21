@@ -1,5 +1,6 @@
 package com.example.freightcrayt.activities;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -20,23 +21,23 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.freightcrayt.R;
 import com.example.freightcrayt.adapters.AddEditItemSpinnerAdapter;
 import com.example.freightcrayt.models.Collection;
 import com.example.freightcrayt.utils.DataHelper;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class AddItem extends AppCompatActivity {
-
-    // Data helper for getting user credentials
-    DataHelper data;
-
-    // Item ID
-    private String itemID;
 
     // camera permission final ints
     private static final int REQUEST_IMAGE_CAPTURE = 0;
@@ -52,26 +53,14 @@ public class AddItem extends AppCompatActivity {
     CircleImageView editButton;
     Button addButton;
     Button discardButton;
+    String collectionID;
+    String collectionTitle;
+    String collectionDescription;
+    int collectionGoal;
+    int collectionSize;
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        categoryChoice = (Spinner) findViewById(R.id.category_dropdown);
-
-        ArrayList<Collection> items = data.getUserCategories();
-
-        AddEditItemSpinnerAdapter adapter = new AddEditItemSpinnerAdapter(AddItem.this, items);
-
-        categoryChoice.setAdapter(adapter);
-
-        // set the collectionID
-        String collectionID = getIntent().getStringExtra("extraInfo");
-
-        if(!(collectionID == null)) {
-            categoryChoice.setSelection(adapter.getPosition(data.getUserCategory(collectionID)));
-        }
-    }
+    // items adapter
+    AddEditItemSpinnerAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,11 +77,12 @@ public class AddItem extends AppCompatActivity {
             }
         }, intentFilter);
 
-        // initiate dataHelper
-        data = DataHelper.getInstance();
-
-        // set the itemID
-        this.itemID = getIntent().getStringExtra("extraInfo");
+        // set the collection details
+        this.collectionID = getIntent().getExtras().getString("collectionID");
+        this.collectionTitle = getIntent().getExtras().getString("title");
+        this.collectionDescription = getIntent().getExtras().getString("description");
+        this.collectionGoal = getIntent().getExtras().getInt("goal");
+        this.collectionSize = getIntent().getExtras().getInt("size");
 
         // init fields
         itemImage = (ImageView) findViewById(R.id.item_add_Image);
@@ -102,6 +92,53 @@ public class AddItem extends AppCompatActivity {
         editButton = (CircleImageView) findViewById(R.id.item_add_image_btn);
         addButton = (Button) findViewById(R.id.add_button);
         discardButton = (Button) findViewById(R.id.discard_button);
+        categoryChoice = (Spinner) findViewById(R.id.category_dropdown);
+
+        ArrayList<Collection> items = new ArrayList<>();
+
+        // for populating the categories dropdown
+        if (this.collectionID != null && this.collectionTitle != null) {
+            items.add(new Collection(collectionTitle, collectionGoal, collectionDescription, collectionID, collectionSize));
+        } else {
+            // retrieve user collections
+            FirebaseDatabase db = FirebaseDatabase.getInstance();
+            DatabaseReference userCollectionsRef = db.getReference("UserCategories");
+            DatabaseReference collectionsRef = db.getReference("Categories");
+
+            userCollectionsRef.child(DataHelper.getUserID()).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    for (DataSnapshot collectionsIDSnap : snapshot.getChildren()) {
+                        String collectionID = collectionsIDSnap.getValue(String.class);
+
+                        collectionsRef.child(collectionID).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                Collection collection = snapshot.getValue(Collection.class);
+                                if (collection != null) {
+                                    items.add(collection);
+                                    refreshAdapter(items);
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                                Toast.makeText(AddItem.this, "failed to retrieve collections", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Toast.makeText(AddItem.this, "failed to retrieve collections", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+
+        adapter = new AddEditItemSpinnerAdapter(AddItem.this, items);
+
+        categoryChoice.setAdapter(adapter);
 
         // dialog listener for delete yes no option box
         DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
@@ -109,10 +146,7 @@ public class AddItem extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 switch (which){
                     case DialogInterface.BUTTON_POSITIVE:
-                        data.removeUserCategoryItem(itemID);
-                        Intent broadcastRefresh = new Intent();
-                        broadcastRefresh.setAction("com.package.ACTION_LOGOUT");
-                        sendBroadcast(broadcastRefresh);
+                        finish();
                         break;
 
                     case DialogInterface.BUTTON_NEGATIVE:
@@ -161,7 +195,7 @@ public class AddItem extends AppCompatActivity {
                 String description = itemDescription.getText().toString();
 
                 if(isValidFields()) {
-                    data.addUserCategoryItem(title, dateOfAcquisition, description, collection.collectionID, image);
+                    DataHelper.addCategoryItem(title, dateOfAcquisition, description, collection.getCollectionID(), image, collectionSize);
                     finish();
                 }
             }
@@ -215,5 +249,10 @@ public class AddItem extends AppCompatActivity {
         }
 
         return isValid;
+    }
+
+    private void refreshAdapter(ArrayList<Collection> items) {
+        adapter = new AddEditItemSpinnerAdapter(AddItem.this, items);
+        categoryChoice.setAdapter(adapter);
     }
 }

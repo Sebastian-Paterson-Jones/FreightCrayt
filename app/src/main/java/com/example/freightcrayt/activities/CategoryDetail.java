@@ -1,5 +1,6 @@
 package com.example.freightcrayt.activities;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.menu.ActionMenuItemView;
@@ -11,6 +12,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -20,19 +22,31 @@ import android.widget.Toast;
 import com.example.freightcrayt.R;
 import com.example.freightcrayt.adapters.CategoryItemListAdapter;
 import com.example.freightcrayt.adapters.CategoryListAdapter;
+import com.example.freightcrayt.models.Collection;
 import com.example.freightcrayt.models.CollectionItem;
 import com.example.freightcrayt.utils.DataHelper;
 import com.example.freightcrayt.utils.IntentHelper;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class CategoryDetail extends AppCompatActivity {
 
     // current collection id
     private String collectionID;
+    private String collectionTitle;
+    private String collectionDescription;
+    private int collectionGoal;
+    private int collectionSize;
 
     // fields
     private TextInputEditText searchBox;
@@ -53,34 +67,21 @@ public class CategoryDetail extends AppCompatActivity {
     // list adapter
     CategoryItemListAdapter itemListAdapter;
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        // set items
-        items = data.getUserCategoryItems(this.collectionID);
-
-        // update num items title
-        categoryNumItems.setText(String.valueOf(items.size()) + " of " + data.getUserCategoryGoal(collectionID) + " items");
-
-        // adapter init
-        itemListAdapter = new CategoryItemListAdapter(CategoryDetail.this, items);
-
-        // assign adapter to gridView
-        grid = (GridView) findViewById(R.id.category_detail_grid);
-        grid.setAdapter(itemListAdapter);
-    }
+    // firebase reference
+    DatabaseReference itemsRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category_detail);
 
-        // create and instantiate dummy data
-        data = DataHelper.getInstance();
+        // set the collection details
+        this.collectionID = getIntent().getExtras().getString("collectionID");
+        this.collectionTitle = getIntent().getExtras().getString("title");
+        this.collectionDescription = getIntent().getExtras().getString("description");
+        this.collectionGoal = getIntent().getExtras().getInt("goal");
+        this.collectionSize = getIntent().getExtras().getInt("size");
 
-        // set the collectionID
-        this.collectionID = getIntent().getStringExtra("extraInfo");
 
         // broadcast to finish activity on logout
         IntentFilter intentFilter = new IntentFilter();
@@ -98,9 +99,59 @@ public class CategoryDetail extends AppCompatActivity {
         this.categoryNumItems = (TextView) findViewById(R.id.category_detail_numItems);
         this.addNewItemButton = (ImageView) findViewById(R.id.category_detail_add);
         this.backButton = (ImageView) findViewById(R.id.category_detail_backButton);
+        this.grid = (GridView) findViewById(R.id.category_detail_grid);
 
         // Set the header text
-        categoryTitle.setText(data.getUserCategory(this.collectionID).title);
+        categoryTitle.setText(this.collectionTitle);
+
+        // update num items title
+        categoryNumItems.setText(this.collectionSize + " of " + this.collectionGoal + " items");
+
+        // category items
+        items = new ArrayList<>();
+
+        // retrieve user collections
+        FirebaseDatabase db = FirebaseDatabase.getInstance();
+        itemsRef = db.getReference("Items");
+
+        itemsRef.orderByChild("collectionID").equalTo(this.collectionID).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                CollectionItem item = snapshot.getValue(CollectionItem.class);
+                if(item != null) {
+                    items.add(item);
+                    refreshAdapter(items);
+                }
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                CollectionItem item = snapshot.getValue(CollectionItem.class);
+                if(item != null) {
+                    removeListItemByID(item.getItemID());
+                    items.add(item);
+                    refreshAdapter(items);
+                }
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+                CollectionItem item = snapshot.getValue(CollectionItem.class);
+                if(item != null) {
+                    removeListItemByID(item.getItemID());
+                    refreshAdapter(items);
+                }
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(CategoryDetail.this, "Item updates canceled", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         // set event listener for search box filtering
         searchBox.addTextChangedListener(new TextWatcher() {
@@ -122,7 +173,13 @@ public class CategoryDetail extends AppCompatActivity {
         addNewItemButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                IntentHelper.openIntent(CategoryDetail.this, collectionID, AddItem.class);
+                Bundle intentBundle = new Bundle();
+                intentBundle.putString("collectionID", collectionID);
+                intentBundle.putString("title", collectionTitle);
+                intentBundle.putString("description", collectionDescription);
+                intentBundle.putInt("goal", collectionGoal);
+                intentBundle.putInt("size", collectionSize);
+                IntentHelper.openIntent(CategoryDetail.this, intentBundle, AddItem.class);
             }
         });
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -131,5 +188,20 @@ public class CategoryDetail extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    private void refreshAdapter(ArrayList<CollectionItem> ArrayList) {
+        // adapter init
+        itemListAdapter = new CategoryItemListAdapter(CategoryDetail.this, ArrayList, collectionSize);
+        grid.setAdapter(itemListAdapter);
+    }
+
+    private void removeListItemByID(String itemID) {
+        for(CollectionItem item : items) {
+            if(itemID.equals(item.getItemID())) {
+                items.remove(item);
+                return;
+            }
+        }
     }
 }
