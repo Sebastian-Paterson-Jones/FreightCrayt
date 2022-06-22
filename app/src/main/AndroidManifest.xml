@@ -62,6 +62,9 @@
         <activity
             android:name=".activities.AddItem"
             android:exported="false" />
+        <activity
+            android:name=".activities.Analytics"
+            android:exported="false"/>
     </application>
 
 </manifest>
