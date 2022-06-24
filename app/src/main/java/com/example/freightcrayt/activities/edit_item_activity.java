@@ -25,6 +25,7 @@ import com.example.freightcrayt.R;
 import com.example.freightcrayt.models.Collection;
 import com.example.freightcrayt.models.CollectionItem;
 import com.example.freightcrayt.utils.DataHelper;
+import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -50,6 +51,7 @@ public class edit_item_activity extends AppCompatActivity {
     private String itemAcquisitionDatetext;
     private String itemDescriptionText;
     private String itemCollectionID;
+    private String imageUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +74,7 @@ public class edit_item_activity extends AppCompatActivity {
         this.itemAcquisitionDatetext = getIntent().getExtras().getString("acquisitionDate");
         this.itemDescriptionText = getIntent().getExtras().getString("description");
         this.itemCollectionID = getIntent().getExtras().getString("collectionID");
+        this.imageUrl = getIntent().getExtras().getString("image");
 
         // init component fields
         this.itemImage = (ImageView) findViewById(R.id.item_edit_Image);
@@ -86,7 +89,9 @@ public class edit_item_activity extends AppCompatActivity {
         itemTitle.setText(itemTitleText);
         date.setText(itemAcquisitionDatetext);
         itemDescription.setText(itemDescriptionText);
-        itemImage.setImageBitmap(image);
+        if(imageUrl != null) {
+            Picasso.get().load(imageUrl).into(itemImage);
+        }
 
         // dialog listener for delete yes no option box
         DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
@@ -142,9 +147,7 @@ public class edit_item_activity extends AppCompatActivity {
                 String description = itemDescription.getText().toString();
 
                 if(isValidFields()) {
-                    // TODO: add image to this
-                    CollectionItem collectionItem = new CollectionItem(title, dateOfAcquisition, description, itemCollectionID, itemID);
-                    DataHelper.editCategoryItem(collectionItem);
+                    DataHelper.editCategoryItem(title, dateOfAcquisition, description, itemCollectionID, image, imageUrl, itemID);
                     finish();
                 }
             }

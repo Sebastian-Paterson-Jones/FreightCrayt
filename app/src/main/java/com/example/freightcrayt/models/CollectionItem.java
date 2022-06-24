@@ -1,10 +1,11 @@
 package com.example.freightcrayt.models;
 
 import android.graphics.Bitmap;
+import android.net.Uri;
 
 public class CollectionItem {
 
-    private Bitmap image;
+    private String image;
     private String title;
     private String acquisitionDate;
     private String description;
@@ -22,7 +23,7 @@ public class CollectionItem {
         this.itemID = itemID;
     }
 
-    public CollectionItem (String title, String acquisitionDate, String description, String collectionID, Bitmap image, String itemID) {
+    public CollectionItem (String title, String acquisitionDate, String description, String collectionID, String image, String itemID) {
         this.title = title;
         this.acquisitionDate = acquisitionDate;
         this.description = description;
@@ -31,11 +32,11 @@ public class CollectionItem {
         this.itemID = itemID;
     }
 
-    public Bitmap getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(Bitmap image) {
+    public void setImage(String image) {
         this.image = image;
     }
 
