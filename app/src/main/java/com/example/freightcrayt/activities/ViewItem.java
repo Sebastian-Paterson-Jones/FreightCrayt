@@ -3,6 +3,7 @@ package com.example.freightcrayt.activities;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.menu.ActionMenuItemView;
 
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
@@ -29,6 +30,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
+import com.google.android.material.bottomappbar.BottomAppBar;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -49,6 +52,11 @@ public class ViewItem extends AppCompatActivity {
     TextView itemDescription;
     CircleImageView editButton;
     CircleImageView deleteButton;
+
+    // bottom nav functionality
+    private BottomAppBar bottomNav;
+    private FloatingActionButton addItemButton;
+    private ActionMenuItemView accountNav;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +85,9 @@ public class ViewItem extends AppCompatActivity {
         itemDescription = (TextView) findViewById(R.id.item_detail_description);
         editButton = (CircleImageView) findViewById(R.id.item_detail_btnEditItem);
         deleteButton = (CircleImageView) findViewById(R.id.item_detail_btnDeleteItem);
+        bottomNav = (BottomAppBar) findViewById(R.id.bottom_nav_bar);
+        addItemButton = (FloatingActionButton) findViewById(R.id.bottom_nav_addItem);
+        accountNav = (ActionMenuItemView) findViewById(R.id.bottomNavPerson);
 
         // pull item data from database
         // retrieve user collections
@@ -141,6 +152,24 @@ public class ViewItem extends AppCompatActivity {
                 itemBundle.putString("collectionID", collectionItem.getCollectionID());
                 itemBundle.putString("image", collectionItem.getImage());
                 IntentHelper.openIntent(ViewItem.this, itemBundle, edit_item_activity.class);
+            }
+        });
+        addItemButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                IntentHelper.openIntent(ViewItem.this, "addNew", add_new.class);
+            }
+        });
+        accountNav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                IntentHelper.openIntent(ViewItem.this, "Account nav", UserDetail.class);
+            }
+        });
+        bottomNav.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                IntentHelper.openIntent(ViewItem.this, "Home", MainActivity.class);
             }
         });
     }

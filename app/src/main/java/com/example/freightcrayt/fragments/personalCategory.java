@@ -45,17 +45,16 @@ public class personalCategory extends Fragment {
     // data array
     ArrayList<Collection> collections;
 
-    // data helper
-    DataHelper data;
-
     // fields
     ListView categoriesList;
 
     // assign parent view;
     View view;
 
+    // firebase references
     DatabaseReference userCollectionsRef;
     DatabaseReference collectionsRef;
+    DatabaseReference collaborationCollections;
 
     public personalCategory() {
     }
@@ -81,6 +80,7 @@ public class personalCategory extends Fragment {
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         userCollectionsRef = db.getReference("UserCategories");
         collectionsRef = db.getReference("Categories");
+        collaborationCollections = db.getReference("CollectionCollaborations");
 
         userCollectionsRef.child(DataHelper.getUserID()).addValueEventListener(new ValueEventListener() {
             @Override
@@ -88,20 +88,60 @@ public class personalCategory extends Fragment {
                 for(DataSnapshot collectionsIDSnap : snapshot.getChildren()) {
                     String collectionID = collectionsIDSnap.getValue(String.class);
 
+                    // add listener to collection
                     collectionsRef.child(collectionID).addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             Collection collection = snapshot.getValue(Collection.class);
                             if(collection != null) {
-                                removeListCategoryByID(collection.getCollectionID());
-                                collections.add(collection);
-                                refreshAdapter(collections);
+                                if(!collection.getIsCollaboration()) {
+                                    removeListCategoryByID(collection.getCollectionID());
+                                    collections.add(collection);
+                                    refreshAdapter(collections);
+                                }
                             }
                         }
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
                             Toast.makeText(getContext(), "failed to retrieve collections", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                    // add listener to collection collaboration members
+                    collaborationCollections.child(collectionID).addChildEventListener(new ChildEventListener() {
+                        @Override
+                        public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                            String userID = snapshot.getValue(String.class);
+                            if(userID != null) {
+                                if(!userID.equals(DataHelper.getUserID())) {
+                                    removeListCategoryByID(collectionID);
+                                    refreshAdapter(collections);
+                                    collectionsRef.child(collectionID).child("isCollaboration").setValue(true);
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                        }
+
+                        @Override
+                        public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+                            if(snapshot.getChildrenCount() < 2) {
+                                removeListCategoryByID(collectionID);
+                                refreshAdapter(collections);
+                                collectionsRef.child(collectionID).child("isCollaboration").setValue(false);
+                            }
+                        }
+
+                        @Override
+                        public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            Toast.makeText(getContext(), "Update to collaboration categories was cancelled", Toast.LENGTH_SHORT).show();
                         }
                     });
                 }

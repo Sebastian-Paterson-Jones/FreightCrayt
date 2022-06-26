@@ -1,6 +1,7 @@
 package com.example.freightcrayt.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.menu.ActionMenuItemView;
 
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
@@ -18,13 +19,16 @@ import com.example.freightcrayt.R;
 import com.example.freightcrayt.utils.DataHelper;
 import com.example.freightcrayt.utils.IntentHelper;
 import com.google.android.material.bottomappbar.BottomAppBar;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class UserDetail extends AppCompatActivity {
 
-    // Data helper for getting user credentials
-    DataHelper dataHelper;
+    // bottom nav functionality
+    private BottomAppBar bottomNav;
+    private FloatingActionButton addItemButton;
+    private ActionMenuItemView accountNav;
 
     private ImageView userImage;
     private TextView userEmail;
@@ -61,11 +65,14 @@ public class UserDetail extends AppCompatActivity {
         totalCrates = (TextView) findViewById(R.id.user_totalCrates);
         totalItems = (TextView) findViewById(R.id.user_totalItems);
         signOut = (Button) findViewById(R.id.user_signOut);
+        bottomNav = (BottomAppBar) findViewById(R.id.bottom_nav_bar);
+        addItemButton = (FloatingActionButton) findViewById(R.id.bottom_nav_addItem);
+        accountNav = (ActionMenuItemView) findViewById(R.id.bottomNavPerson);
 
         // set user details
         userImage.setImageResource(R.drawable.ic_baseline_person_24);
-        userEmail.setText(dataHelper.getUserEmail());
-        userName.setText(dataHelper.getUsername());
+        userEmail.setText(DataHelper.getUserEmail());
+        userName.setText(DataHelper.getUsername());
         totalCrates.setText("0" + " Crates");
         totalItems.setText("0" + " Items");
 
@@ -74,6 +81,18 @@ public class UserDetail extends AppCompatActivity {
             public void onClick(View view) {
                 FirebaseAuth.getInstance().signOut();
                 IntentHelper.logout(UserDetail.this);
+            }
+        });
+        addItemButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                IntentHelper.openIntent(UserDetail.this, "addNew", add_new.class);
+            }
+        });
+        bottomNav.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                IntentHelper.openIntent(UserDetail.this, "Home", MainActivity.class);
             }
         });
 

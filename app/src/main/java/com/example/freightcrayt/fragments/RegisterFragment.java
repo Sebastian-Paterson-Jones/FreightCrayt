@@ -23,6 +23,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class RegisterFragment extends Fragment {
 
@@ -110,6 +112,13 @@ public class RegisterFragment extends Fragment {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     setUserName(username);
+
+                                    // add user to firebase realtime database
+                                    FirebaseUser user = mAuth.getCurrentUser();
+                                    FirebaseDatabase db = FirebaseDatabase.getInstance();
+                                    DatabaseReference userRef = db.getReference("Users").child(user.getUid());
+                                    userRef.child("username").setValue(username);
+                                    userRef.child("email").setValue(user.getEmail());
 
                                     // hide loader
                                     loader.setVisibility(View.GONE);

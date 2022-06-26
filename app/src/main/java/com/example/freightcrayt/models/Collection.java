@@ -1,11 +1,5 @@
 package com.example.freightcrayt.models;
 
-import com.google.firebase.database.Exclude;
-import com.google.firebase.database.IgnoreExtraProperties;
-
-import java.util.HashMap;
-import java.util.Map;
-
 public class Collection {
 
     private String title;
@@ -13,6 +7,7 @@ public class Collection {
     private String description;
     private String collectionID;
     private int size;
+    private boolean isCollaboration;
 
     public Collection() {
     }
@@ -70,6 +65,15 @@ public class Collection {
 
     public void setSize(int size) {
         this.size = size;
+    }
+
+    public boolean getIsCollaboration() {
+        return isCollaboration;
+    }
+
+    public boolean setIsCollaboration(boolean isCollaboration) {
+        this.isCollaboration = isCollaboration;
+        return isCollaboration;
     }
 
     @Override

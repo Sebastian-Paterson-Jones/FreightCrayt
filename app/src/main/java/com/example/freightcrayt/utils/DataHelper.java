@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import com.example.freightcrayt.models.Collection;
 import com.example.freightcrayt.models.CollectionItem;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -236,6 +237,38 @@ public class DataHelper {
         StorageReference imagesRef = storageRef.child("images");
         StorageReference imageRef = imagesRef.child(itemID);
         return imageRef.delete();
+    }
+
+    public static boolean addUserToCategory(String collectionID, String userID) {
+        FirebaseDatabase db = FirebaseDatabase.getInstance();
+        final boolean[] res = {true};
+
+        DatabaseReference userRef = db.getReference("CollectionCollaborations").child(collectionID).child(userID);
+        userRef.setValue(true, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                if(error != null) {
+                    res[0] = false;
+                }
+            }
+        });
+
+        return res[0];
+    }
+
+    public static boolean removeUserFromCategory(String collectionID, String userID) {
+        FirebaseDatabase db = FirebaseDatabase.getInstance();
+        final boolean[] res = {true};
+
+        DatabaseReference userRef = db.getReference("CollectionCollaborations").child(collectionID);
+        userRef.child(userID).removeValue().addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                res[0] = false;
+            }
+        });
+
+        return res[0];
     }
 
     public static void incrementCollectionSize(String collectionID, int collectionSize) {

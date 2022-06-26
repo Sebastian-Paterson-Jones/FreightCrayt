@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.freightcrayt.activities.CategoryDetail;
+import com.example.freightcrayt.activities.MainActivity;
 import com.example.freightcrayt.models.Collection;
 import com.example.freightcrayt.R;
 import com.example.freightcrayt.utils.DataHelper;
@@ -25,8 +26,11 @@ import java.util.ArrayList;
 
 public class CategoryListAdapter extends ArrayAdapter<Collection> {
 
+    Context context;
+
     public CategoryListAdapter(Context context, ArrayList<Collection> collectionArrayList) {
         super(context, R.layout.collection_list_item, R.id.personal_listItemID, collectionArrayList);
+        this.context = context;
     }
 
     @NonNull
@@ -55,15 +59,16 @@ public class CategoryListAdapter extends ArrayAdapter<Collection> {
         // set num items
         collectionCount.setText(String.valueOf(item.getSize()) + " of " + String.valueOf(item.getGoal()));
 
-        // collaboration activity
+        // collaboration activate
         shareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "Redirect to share category activity", Toast.LENGTH_LONG).show();
+                if(context instanceof MainActivity) {
+                    ((MainActivity) context).showCollaborationOverlay(item);
+                }
             }
         });
 
-        // no handler just yet for redirecting to edit activity
         // TODO: set redirect to category edit activity
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override

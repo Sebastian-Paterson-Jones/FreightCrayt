@@ -41,6 +41,11 @@ import java.util.Objects;
 
 public class CategoryDetail extends AppCompatActivity {
 
+    // bottom nav functionality
+    private BottomAppBar bottomNav;
+    private FloatingActionButton addItemButton;
+    private ActionMenuItemView accountNav;
+
     // current collection id
     private String collectionID;
     private String collectionTitle;
@@ -100,6 +105,9 @@ public class CategoryDetail extends AppCompatActivity {
         this.addNewItemButton = (ImageView) findViewById(R.id.category_detail_add);
         this.backButton = (ImageView) findViewById(R.id.category_detail_backButton);
         this.grid = (GridView) findViewById(R.id.category_detail_grid);
+        bottomNav = (BottomAppBar) findViewById(R.id.bottom_nav_bar);
+        addItemButton = (FloatingActionButton) findViewById(R.id.bottom_nav_addItem);
+        accountNav = (ActionMenuItemView) findViewById(R.id.bottomNavPerson);
 
         // Set the header text
         categoryTitle.setText(this.collectionTitle);
@@ -186,6 +194,24 @@ public class CategoryDetail extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 finish();
+            }
+        });
+        addItemButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                IntentHelper.openIntent(CategoryDetail.this, "addNew", add_new.class);
+            }
+        });
+        accountNav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                IntentHelper.openIntent(CategoryDetail.this, "Account nav", UserDetail.class);
+            }
+        });
+        bottomNav.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                IntentHelper.openIntent(CategoryDetail.this, "Home", MainActivity.class);
             }
         });
     }
