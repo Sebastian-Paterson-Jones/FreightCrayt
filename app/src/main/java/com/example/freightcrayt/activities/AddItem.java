@@ -4,9 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.DialogFragment;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -18,6 +20,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -34,6 +37,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -42,7 +46,8 @@ public class AddItem extends AppCompatActivity {
     // camera permission final ints
     private static final int REQUEST_IMAGE_CAPTURE = 0;
     private static final int REQUEST_IMAGE_CAPTURE_PERMISSION = 100;
-
+    private Button dateButton;
+    private DatePickerDialog datePickerDialog;
     // fields
     Bitmap image;
     ImageView itemImage;
@@ -62,10 +67,14 @@ public class AddItem extends AppCompatActivity {
     // items adapter
     AddEditItemSpinnerAdapter adapter;
 
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_item);
+        initDatePicker();
 
         // broadcast to finish activity on logout
         IntentFilter intentFilter = new IntentFilter();
@@ -87,7 +96,13 @@ public class AddItem extends AppCompatActivity {
         // init fields
         itemImage = (ImageView) findViewById(R.id.item_add_Image);
         itemTitle = (TextView) findViewById(R.id.title_textview);
-        date = (TextView) findViewById(R.id.date_textview);
+
+        //date = (TextView) findViewById(R.id.date_textview);
+
+        dateButton = findViewById(R.id.date_textview);
+
+        dateButton.setText(getTodaysDate());
+
         itemDescription = (TextView) findViewById(R.id.description_textview);
         editButton = (CircleImageView) findViewById(R.id.item_add_image_btn);
         addButton = (Button) findViewById(R.id.add_button);
@@ -195,6 +210,7 @@ public class AddItem extends AppCompatActivity {
             }
         };
 
+
         // edit image button
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -242,6 +258,8 @@ public class AddItem extends AppCompatActivity {
         });
     }
 
+
+
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            @Nullable String[] permissions,
@@ -280,10 +298,10 @@ public class AddItem extends AppCompatActivity {
             itemTitle.setError("Title cannot be empty");
             isValid = false;
         }
-        if(date.getText().toString().isEmpty()) {
-            date.setError("Date cannot be empty");
-            isValid = false;
-        }
+        //if(date.getText().toString().isEmpty()) {
+            //date.setError("Date cannot be empty");
+           // isValid = false;
+       // }
         if(!categoryChoice.isSelected()) {
             categoryChoice.setSelection(0);
         }
@@ -294,5 +312,51 @@ public class AddItem extends AppCompatActivity {
     private void refreshAdapter(ArrayList<Collection> items) {
         adapter = new AddEditItemSpinnerAdapter(AddItem.this, items);
         categoryChoice.setAdapter(adapter);
+    }
+
+
+    private String getTodaysDate()
+    {
+        Calendar cal = Calendar.getInstance();
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH);
+        month = month +1;
+        int day = cal.get(Calendar.DAY_OF_WEEK);
+        return makeDateString(day,month,year);
+    }
+    private void initDatePicker()
+    {
+        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener()
+        {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth)
+            {
+                month = month +1;
+                String date = makeDateString(dayOfMonth,month,year);
+                dateButton.setText(date);
+
+            }
+        };
+
+        Calendar cal = Calendar.getInstance();
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH);
+        int day = cal.get(Calendar.DAY_OF_WEEK);
+
+        int style = AlertDialog.THEME_HOLO_LIGHT;
+
+        datePickerDialog = new DatePickerDialog (this, style, dateSetListener, day, month, year);
+
+    }
+
+    private String makeDateString(int dayOfMonth, int month, int year)
+    {
+        return dayOfMonth + " " + month + " " + year;
+    }
+
+    public void openDate(View view)
+    {
+        datePickerDialog.show();
+
     }
 }
