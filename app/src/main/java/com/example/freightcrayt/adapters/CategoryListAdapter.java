@@ -21,6 +21,7 @@ import com.example.freightcrayt.R;
 import com.example.freightcrayt.utils.DataHelper;
 import com.example.freightcrayt.utils.IntentHelper;
 import com.google.android.material.button.MaterialButton;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -49,9 +50,6 @@ public class CategoryListAdapter extends ArrayAdapter<Collection> {
         MaterialButton shareButton = (MaterialButton) convertView.findViewById(R.id.personal_collectionItemShare);
         MaterialButton editButton = (MaterialButton) convertView.findViewById(R.id.personal_collectionItemEdit);
         LinearLayout container = (LinearLayout) convertView.findViewById(R.id.personal_listContainer);
-
-        // default image cuz items don't have images as of yet
-        collectionImage.setImageResource(R.drawable.ic_baseline_person_24);
 
         // set the title
         collectionTitle.setText(item.getTitle());
