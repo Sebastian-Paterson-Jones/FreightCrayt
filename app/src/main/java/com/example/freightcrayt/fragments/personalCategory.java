@@ -112,7 +112,7 @@ public class personalCategory extends Fragment {
                     collaborationCollections.child(collectionID).addChildEventListener(new ChildEventListener() {
                         @Override
                         public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                            String userID = snapshot.getValue(String.class);
+                            String userID = snapshot.getKey();
                             if(userID != null) {
                                 if(!userID.equals(DataHelper.getUserID())) {
                                     removeListCategoryByID(collectionID);

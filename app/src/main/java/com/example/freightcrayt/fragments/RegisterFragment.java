@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.freightcrayt.models.User;
 import com.example.freightcrayt.utils.IntentHelper;
 import com.example.freightcrayt.R;
 import com.example.freightcrayt.activities.MainActivity;
@@ -117,8 +118,8 @@ public class RegisterFragment extends Fragment {
                                     FirebaseUser user = mAuth.getCurrentUser();
                                     FirebaseDatabase db = FirebaseDatabase.getInstance();
                                     DatabaseReference userRef = db.getReference("Users").child(user.getUid());
-                                    userRef.child("username").setValue(username);
-                                    userRef.child("email").setValue(user.getEmail());
+                                    User userModel = new User(userEmail, username, user.getUid());
+                                    userRef.setValue(userModel);
 
                                     // hide loader
                                     loader.setVisibility(View.GONE);

@@ -37,4 +37,97 @@
 
    <include layout="@layout/fragment_bottom_nav" />
 
+    <FrameLayout
+        android:id="@+id/shareBottomSheet"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:background="@color/purple_200"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+        app:behavior_hideable="true">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="10dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="10dp">
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_baseline_share_24"
+                    app:tint="@color/common_google_signin_btn_text_light" />
+                <TextView
+                    android:id="@+id/shareBottomSheetTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="25dp"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="10dp"
+                    android:text="Share with:"
+                    android:layout_gravity="center_vertical"/>
+            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15dp"
+                android:textStyle="bold"
+                android:layout_marginLeft="10dp"
+                android:text="Select a collaborator:"
+                android:layout_gravity="center_vertical"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/share_user_list"
+                    android:layout_width="match_parent"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_height="60dp"
+                    android:scrollbars="horizontal"
+                    android:nestedScrollingEnabled="true"/>
+            </RelativeLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:textSize="15dp"
+                android:textStyle="bold"
+                android:layout_marginLeft="10dp"
+                android:text="or add by email:"
+                android:layout_gravity="center_vertical"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/collaborator_add_box"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:hint="Email"
+                    app:boxCornerRadiusBottomEnd="10dp"
+                    app:boxCornerRadiusBottomStart="10dp"
+                    app:boxCornerRadiusTopEnd="10dp"
+                    app:boxCornerRadiusTopStart="10dp"
+                    app:endIconContentDescription="Search"
+                    app:endIconDrawable="@drawable/ic_baseline_search_24">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/collaborations_emailBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </com.google.android.material.textfield.TextInputLayout>
+                <Button
+                    android:id="@+id/btnAddEmail"
+                    android:layout_width="100dp"
+                    android:layout_height="60dp"
+                    android:text="add"
+                    android:layout_marginLeft="20dp"
+                    android:backgroundTint="@color/purple_700"/>
+            </LinearLayout>
+        </LinearLayout>
+    </FrameLayout>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

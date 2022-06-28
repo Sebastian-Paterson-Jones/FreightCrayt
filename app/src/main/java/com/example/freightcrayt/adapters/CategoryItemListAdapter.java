@@ -71,7 +71,7 @@ public class CategoryItemListAdapter extends ArrayAdapter<CollectionItem> {
         // set description
         collectionItemDescription.setText(item.getDescription());
 
-        // no handler just yet for redirecting to share activity
+        // edit item
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -81,6 +81,7 @@ public class CategoryItemListAdapter extends ArrayAdapter<CollectionItem> {
                 itemBundle.putString("description", item.getDescription());
                 itemBundle.putString("itemID", item.getItemID());
                 itemBundle.putString("collectionID", item.getCollectionID());
+                itemBundle.putString("image", item.getImage());
                 IntentHelper.openIntent(getContext(), itemBundle, edit_item_activity.class);
             }
         });

@@ -43,6 +43,7 @@ public class collaborationCategory extends Fragment {
     // firebase references
     DatabaseReference userCollectionsRef;
     DatabaseReference collectionsRef;
+    DatabaseReference collaborationsRef;
 
     public collaborationCategory() {
     }
@@ -68,7 +69,9 @@ public class collaborationCategory extends Fragment {
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         userCollectionsRef = db.getReference("UserCategories");
         collectionsRef = db.getReference("Categories");
+        collaborationsRef = db.getReference("CollectionCollaborations");
 
+        // listener for user collaborations they own
         userCollectionsRef.child(DataHelper.getUserID()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -99,6 +102,44 @@ public class collaborationCategory extends Fragment {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Toast.makeText(getContext(), "failed to retrieve collections", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // listner for user collaborations they are invited to
+        collaborationsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot snap : snapshot.getChildren()) {
+                    String collectionID = snap.getKey();
+                    if(collectionID != null) {
+                        Boolean isUser = snap.child(DataHelper.getUserID()).getValue(Boolean.class);
+                        if(isUser != null) {
+                            if(isUser) {
+                                collectionsRef.child(collectionID).addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        Collection collection = snapshot.getValue(Collection.class);
+                                        if(collection != null) {
+                                            removeListCategoryByID(collection.getCollectionID());
+                                            collaborationCollections.add(collection);
+                                            refreshAdapter(collaborationCollections);
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+                                        Toast.makeText(getContext(), "failed to retrieve collections", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
 

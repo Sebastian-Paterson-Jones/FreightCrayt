@@ -17,6 +17,7 @@
             android:layout_height="300dp"
             android:layout_marginStart="2dp"
             android:src="@drawable/ic_baseline_camera_alt_24"
+            android:scaleType="fitXY"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

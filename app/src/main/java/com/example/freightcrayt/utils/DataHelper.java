@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 
 import com.example.freightcrayt.models.Collection;
 import com.example.freightcrayt.models.CollectionItem;
+import com.example.freightcrayt.models.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -243,8 +244,8 @@ public class DataHelper {
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         final boolean[] res = {true};
 
-        DatabaseReference userRef = db.getReference("CollectionCollaborations").child(collectionID).child(userID);
-        userRef.setValue(true, new DatabaseReference.CompletionListener() {
+        DatabaseReference userRef = db.getReference("CollectionCollaborations").child(collectionID).push();
+        userRef.setValue(userID, new DatabaseReference.CompletionListener() {
             @Override
             public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
                 if(error != null) {
