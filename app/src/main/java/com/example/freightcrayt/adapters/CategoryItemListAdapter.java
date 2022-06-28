@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,6 +26,7 @@ import com.example.freightcrayt.utils.IntentHelper;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 import com.example.freightcrayt.activities.edit_item_activity;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -57,7 +59,7 @@ public class CategoryItemListAdapter extends ArrayAdapter<CollectionItem> {
 
         // set image
         if(item.getImage() != null) {
-            collectionItemImage.setImageBitmap(item.getImage());
+            Picasso.get().load(item.getImage()).into(collectionItemImage);
         }
 
         // set the title
@@ -69,7 +71,7 @@ public class CategoryItemListAdapter extends ArrayAdapter<CollectionItem> {
         // set description
         collectionItemDescription.setText(item.getDescription());
 
-        // no handler just yet for redirecting to share activity
+        // edit item
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -79,6 +81,7 @@ public class CategoryItemListAdapter extends ArrayAdapter<CollectionItem> {
                 itemBundle.putString("description", item.getDescription());
                 itemBundle.putString("itemID", item.getItemID());
                 itemBundle.putString("collectionID", item.getCollectionID());
+                itemBundle.putString("image", item.getImage());
                 IntentHelper.openIntent(getContext(), itemBundle, edit_item_activity.class);
             }
         });
@@ -89,7 +92,7 @@ public class CategoryItemListAdapter extends ArrayAdapter<CollectionItem> {
             public void onClick(DialogInterface dialog, int which) {
                 switch (which){
                     case DialogInterface.BUTTON_POSITIVE:
-                        DataHelper.removeCategoryItem(item.getCollectionID(), collectionSize, item.getItemID());
+                        DataHelper.removeCategoryItem(item.getCollectionID(), collectionSize, item.getItemID(), item.getImage());
                         CategoryItemListAdapter.super.remove(item);
                         break;
 

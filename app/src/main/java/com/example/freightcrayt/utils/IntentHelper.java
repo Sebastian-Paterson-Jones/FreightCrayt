@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.freightcrayt.activities.Login;
+import com.example.freightcrayt.models.User;
 
 public class IntentHelper {
 

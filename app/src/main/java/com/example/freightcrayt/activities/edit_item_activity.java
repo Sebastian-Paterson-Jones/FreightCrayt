@@ -2,6 +2,7 @@ package com.example.freightcrayt.activities;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.menu.ActionMenuItemView;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
@@ -25,6 +26,10 @@ import com.example.freightcrayt.R;
 import com.example.freightcrayt.models.Collection;
 import com.example.freightcrayt.models.CollectionItem;
 import com.example.freightcrayt.utils.DataHelper;
+import com.squareup.picasso.Picasso;
+import com.example.freightcrayt.utils.IntentHelper;
+import com.google.android.material.bottomappbar.BottomAppBar;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -50,6 +55,12 @@ public class edit_item_activity extends AppCompatActivity {
     private String itemAcquisitionDatetext;
     private String itemDescriptionText;
     private String itemCollectionID;
+    private String imageUrl;
+
+    // bottom nav functionality
+    private BottomAppBar bottomNav;
+    private FloatingActionButton addItemButton;
+    private ActionMenuItemView accountNav;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +83,7 @@ public class edit_item_activity extends AppCompatActivity {
         this.itemAcquisitionDatetext = getIntent().getExtras().getString("acquisitionDate");
         this.itemDescriptionText = getIntent().getExtras().getString("description");
         this.itemCollectionID = getIntent().getExtras().getString("collectionID");
+        this.imageUrl = getIntent().getExtras().getString("image");
 
         // init component fields
         this.itemImage = (ImageView) findViewById(R.id.item_edit_Image);
@@ -81,12 +93,17 @@ public class edit_item_activity extends AppCompatActivity {
         this.editButton = (CircleImageView) findViewById(R.id.item_edit_image_btn);
         this.addButton = (Button) findViewById(R.id.edit_button);
         this.discardButton = (Button) findViewById(R.id.edit_discard_button);
+        bottomNav = (BottomAppBar) findViewById(R.id.bottom_nav_bar);
+        addItemButton = (FloatingActionButton) findViewById(R.id.bottom_nav_addItem);
+        accountNav = (ActionMenuItemView) findViewById(R.id.bottomNavPerson);
 
         // set the data to fields
         itemTitle.setText(itemTitleText);
         date.setText(itemAcquisitionDatetext);
         itemDescription.setText(itemDescriptionText);
-        itemImage.setImageBitmap(image);
+        if(imageUrl != null) {
+            Picasso.get().load(imageUrl).into(itemImage);
+        }
 
         // dialog listener for delete yes no option box
         DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
@@ -142,11 +159,28 @@ public class edit_item_activity extends AppCompatActivity {
                 String description = itemDescription.getText().toString();
 
                 if(isValidFields()) {
-                    // TODO: add image to this
-                    CollectionItem collectionItem = new CollectionItem(title, dateOfAcquisition, description, itemCollectionID, itemID);
-                    DataHelper.editCategoryItem(collectionItem);
+                    DataHelper.editCategoryItem(title, dateOfAcquisition, description, itemCollectionID, image, imageUrl, itemID);
                     finish();
                 }
+            }
+        });
+
+        addItemButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                IntentHelper.openIntent(edit_item_activity.this, "addNew", add_new.class);
+            }
+        });
+        accountNav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                IntentHelper.openIntent(edit_item_activity.this, "Account nav", UserDetail.class);
+            }
+        });
+        bottomNav.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                IntentHelper.openIntent(edit_item_activity.this, "Home", MainActivity.class);
             }
         });
     }

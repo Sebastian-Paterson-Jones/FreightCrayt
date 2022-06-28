@@ -1,6 +1,7 @@
 package com.example.freightcrayt.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.menu.ActionMenuItemView;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -12,8 +13,15 @@ import android.widget.Button;
 
 import com.example.freightcrayt.R;
 import com.example.freightcrayt.utils.IntentHelper;
+import com.google.android.material.bottomappbar.BottomAppBar;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class add_new extends AppCompatActivity {
+
+    // bottom nav functionality
+    private BottomAppBar bottomNav;
+    private FloatingActionButton addItemButton;
+    private ActionMenuItemView accountNav;
 
     private Button btnAddCrayt;
     private Button btnAddItem;
@@ -35,6 +43,9 @@ public class add_new extends AppCompatActivity {
 
         btnAddCrayt = (Button) (findViewById(R.id.add_crayt_btn));
         btnAddItem = (Button) (findViewById(R.id.add_item_btn));
+        bottomNav = (BottomAppBar) findViewById(R.id.bottom_nav_bar);
+        addItemButton = (FloatingActionButton) findViewById(R.id.bottom_nav_addItem);
+        accountNav = (ActionMenuItemView) findViewById(R.id.bottomNavPerson);
 
         btnAddCrayt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,6 +59,19 @@ public class add_new extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 IntentHelper.openIntent(add_new.this, "", AddItem.class);
+            }
+        });
+
+        accountNav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                IntentHelper.openIntent(add_new.this, "", UserDetail.class);
+            }
+        });
+        bottomNav.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                IntentHelper.openIntent(add_new.this, "Home", MainActivity.class);
             }
         });
     }

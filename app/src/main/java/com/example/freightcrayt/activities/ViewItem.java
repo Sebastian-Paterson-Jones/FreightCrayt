@@ -1,6 +1,9 @@
 package com.example.freightcrayt.activities;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.menu.ActionMenuItemView;
 
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
@@ -8,28 +11,39 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.freightcrayt.R;
 import com.example.freightcrayt.models.CollectionItem;
 import com.example.freightcrayt.utils.DataHelper;
 import com.example.freightcrayt.utils.IntentHelper;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
+import com.google.android.material.bottomappbar.BottomAppBar;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ViewItem extends AppCompatActivity {
 
+    //collectionItem
+    CollectionItem collectionItem;
+
     // Item fields
     private String itemID;
-    private String itemTitleText;
-    private String itemAcquisitionDatetext;
-    private String itemDescriptionText;
     private String itemCollectionID;
-    private int itemCollectionSize;
+    private int collectionSize;
 
     // fields
     ImageView itemImage;
@@ -38,6 +52,11 @@ public class ViewItem extends AppCompatActivity {
     TextView itemDescription;
     CircleImageView editButton;
     CircleImageView deleteButton;
+
+    // bottom nav functionality
+    private BottomAppBar bottomNav;
+    private FloatingActionButton addItemButton;
+    private ActionMenuItemView accountNav;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,12 +75,8 @@ public class ViewItem extends AppCompatActivity {
 
         // set the fields
         this.itemID = getIntent().getExtras().getString("itemID");
-        this.itemTitleText = getIntent().getExtras().getString("title");
-        this.itemAcquisitionDatetext = getIntent().getExtras().getString("acquisitionDate");
-        this.itemDescriptionText = getIntent().getExtras().getString("description");
         this.itemCollectionID = getIntent().getExtras().getString("collectionID");
-        this.itemCollectionSize = getIntent().getExtras().getInt("collectionSize");
-
+        this.collectionSize = getIntent().getExtras().getInt("collectionSize");
 
         // init fields
         itemImage = (ImageView) findViewById(R.id.item_detail_Image);
@@ -70,19 +85,34 @@ public class ViewItem extends AppCompatActivity {
         itemDescription = (TextView) findViewById(R.id.item_detail_description);
         editButton = (CircleImageView) findViewById(R.id.item_detail_btnEditItem);
         deleteButton = (CircleImageView) findViewById(R.id.item_detail_btnDeleteItem);
+        bottomNav = (BottomAppBar) findViewById(R.id.bottom_nav_bar);
+        addItemButton = (FloatingActionButton) findViewById(R.id.bottom_nav_addItem);
+        accountNav = (ActionMenuItemView) findViewById(R.id.bottomNavPerson);
 
+        // pull item data from database
+        // retrieve user collections
+        FirebaseDatabase db = FirebaseDatabase.getInstance();
+        DatabaseReference itemRef = db.getReference("Items").child(itemID);
 
-        // set the item image TODO: make this possible
-//        this.itemImage.setImageBitmap(currentItem.image);
+        itemRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                collectionItem = snapshot.getValue(CollectionItem.class);
+                if (collectionItem != null) {
+                    itemTitle.setText(collectionItem.getTitle());
+                    itemAcquisition.setText(collectionItem.getAcquisitionDate());
+                    itemDescription.setText(collectionItem.getDescription());
+                    if(collectionItem.getImage() != null) {
+                        Picasso.get().load(collectionItem.getImage()).into(itemImage);
+                    }
+                }
+            }
 
-        // set text title
-        this.itemTitle.setText(this.itemTitleText);
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
-        // set text acquisition date
-        this.itemAcquisition.setText(itemAcquisitionDatetext);
-
-        // set the description
-        this.itemDescription.setText(itemDescriptionText);
+            }
+        });
 
         // dialog listener for delete yes no option box
         DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
@@ -90,7 +120,7 @@ public class ViewItem extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 switch (which){
                     case DialogInterface.BUTTON_POSITIVE:
-                        DataHelper.removeCategoryItem(itemCollectionID, itemCollectionSize, itemID);
+                        DataHelper.removeCategoryItem(itemCollectionID, collectionSize, itemID, collectionItem.getImage());
                         finish();
                         break;
 
@@ -115,12 +145,31 @@ public class ViewItem extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Bundle itemBundle = new Bundle();
-                itemBundle.putString("title", itemTitleText);
-                itemBundle.putString("acquisitionDate", itemAcquisitionDatetext);
-                itemBundle.putString("description", itemDescriptionText);
-                itemBundle.putString("itemID", itemID);
-                itemBundle.putString("collectionID", itemCollectionID);
+                itemBundle.putString("title", collectionItem.getTitle());
+                itemBundle.putString("acquisitionDate", collectionItem.getAcquisitionDate());
+                itemBundle.putString("description", collectionItem.getDescription());
+                itemBundle.putString("itemID", collectionItem.getItemID());
+                itemBundle.putString("collectionID", collectionItem.getCollectionID());
+                itemBundle.putString("image", collectionItem.getImage());
                 IntentHelper.openIntent(ViewItem.this, itemBundle, edit_item_activity.class);
+            }
+        });
+        addItemButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                IntentHelper.openIntent(ViewItem.this, "addNew", add_new.class);
+            }
+        });
+        accountNav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                IntentHelper.openIntent(ViewItem.this, "Account nav", UserDetail.class);
+            }
+        });
+        bottomNav.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                IntentHelper.openIntent(ViewItem.this, "Home", MainActivity.class);
             }
         });
     }

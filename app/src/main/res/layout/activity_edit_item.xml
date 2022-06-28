@@ -1,132 +1,141 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.edit_item_activity">
 
-    <ImageView
-        android:id="@+id/item_edit_Image"
-        android:layout_width="410dp"
-        android:layout_height="300dp"
-        android:layout_marginStart="2dp"
-        android:src="@drawable/ic_baseline_camera_alt_24"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/bottom_nav_height">
+        <ImageView
+            android:id="@+id/item_edit_Image"
+            android:layout_width="410dp"
+            android:layout_height="300dp"
+            android:layout_marginStart="2dp"
+            android:src="@drawable/ic_baseline_camera_alt_24"
+            android:scaleType="fitXY"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="42dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/title_label"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/item_edit_Image" />
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="42dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/title_label"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/item_edit_Image" />
 
-    <EditText
-        android:id="@+id/title_edit_textview"
-        android:layout_width="330dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="42dp"
-        android:layout_marginEnd="42dp"
-        android:background="@drawable/custom_input"
-        android:hint="Title"
-        android:paddingLeft="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textView6">
+        <EditText
+            android:id="@+id/title_edit_textview"
+            android:layout_width="330dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="42dp"
+            android:layout_marginEnd="42dp"
+            android:background="@drawable/custom_input"
+            android:hint="Title"
+            android:paddingLeft="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textView6">
 
-    </EditText>
+        </EditText>
 
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="42dp"
-        android:layout_marginTop="8dp"
-        android:text="DATE OF ACQUISITION"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/title_edit_textview" />
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="42dp"
+            android:layout_marginTop="8dp"
+            android:text="DATE OF ACQUISITION"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title_edit_textview" />
 
-    <EditText
-        android:id="@+id/date_edit_textview"
-        android:layout_width="330dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="42dp"
-        android:layout_marginEnd="42dp"
-        android:hint="Date"
-        android:inputType="date"
-        android:paddingLeft="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textView8"></EditText>
+        <EditText
+            android:id="@+id/date_edit_textview"
+            android:layout_width="330dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="42dp"
+            android:layout_marginEnd="42dp"
+            android:hint="Date"
+            android:inputType="date"
+            android:paddingStart="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textView8" />
 
-    <TextView
-        android:id="@+id/textView10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="42dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/description_label"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/date_edit_textview" />
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="42dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/description_label"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/date_edit_textview" />
 
-    <EditText
-        android:id="@+id/description_edit_textview"
-        android:layout_width="330dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="42dp"
-        android:layout_marginEnd="43dp"
-        android:background="@drawable/custom_input"
-        android:ems="10"
-        android:paddingLeft="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textView10"></EditText>
+        <EditText
+            android:id="@+id/description_edit_textview"
+            android:layout_width="330dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="42dp"
+            android:layout_marginEnd="43dp"
+            android:background="@drawable/custom_input"
+            android:ems="10"
+            android:paddingLeft="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textView10" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/edit_discard_button"
-        android:layout_width="130dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="43dp"
-        android:layout_marginBottom="32dp"
-        android:background="@drawable/discard_button"
-        android:text="@string/discard_label"
-        android:textColor="@color/white"
-        android:textSize="12dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/edit_discard_button"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="43dp"
+            android:layout_marginBottom="32dp"
+            android:background="@drawable/discard_button"
+            android:text="@string/discard_label"
+            android:textColor="@color/white"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-    <Button
-        android:id="@+id/edit_button"
-        android:layout_width="130dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="43dp"
-        android:layout_marginBottom="32dp"
-        android:background="@drawable/rounded_button"
-        android:text="@string/add_label"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        <Button
+            android:id="@+id/edit_button"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="43dp"
+            android:layout_marginBottom="32dp"
+            android:background="@drawable/rounded_button"
+            android:text="@string/add_label"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/item_edit_image_btn"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginBottom="16dp"
-        android:foregroundTint="@color/infoColor"
-        android:src="@drawable/ic_baseline_edit_24"
-        app:civ_border_color="@color/infoColor"
-        app:civ_border_width="2dp"
-        app:layout_constraintBottom_toBottomOf="@id/item_edit_Image"
-        app:layout_constraintEnd_toEndOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/item_edit_image_btn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="16dp"
+            android:foregroundTint="@color/infoColor"
+            android:src="@drawable/ic_baseline_edit_24"
+            app:civ_border_color="@color/infoColor"
+            app:civ_border_width="2dp"
+            app:layout_constraintBottom_toBottomOf="@id/item_edit_Image"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <include layout="@layout/fragment_bottom_nav" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
