@@ -65,7 +65,7 @@
         android:layout_marginStart="42dp"
         android:layout_marginEnd="43dp"
         android:hint="Date"
-        style = "?android:spinnerStyle"
+        android:background="@drawable/custom_input"
         android:paddingLeft="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

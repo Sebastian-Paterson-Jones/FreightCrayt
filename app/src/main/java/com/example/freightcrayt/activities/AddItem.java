@@ -52,7 +52,6 @@ public class AddItem extends AppCompatActivity {
     Bitmap image;
     ImageView itemImage;
     TextView itemTitle;
-    TextView date;
     TextView itemDescription;
     Spinner categoryChoice;
     CircleImageView editButton;
@@ -66,9 +65,6 @@ public class AddItem extends AppCompatActivity {
 
     // items adapter
     AddEditItemSpinnerAdapter adapter;
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,10 +93,7 @@ public class AddItem extends AppCompatActivity {
         itemImage = (ImageView) findViewById(R.id.item_add_Image);
         itemTitle = (TextView) findViewById(R.id.title_textview);
 
-        //date = (TextView) findViewById(R.id.date_textview);
-
         dateButton = findViewById(R.id.date_textview);
-
         dateButton.setText(getTodaysDate());
 
         itemDescription = (TextView) findViewById(R.id.description_textview);
@@ -246,7 +239,7 @@ public class AddItem extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String title = itemTitle.getText().toString();
-                String dateOfAcquisition = date.getText().toString();
+                String dateOfAcquisition = dateButton.getText().toString();
                 Collection collection = (Collection) categoryChoice.getSelectedItem();
                 String description = itemDescription.getText().toString();
 
@@ -298,10 +291,6 @@ public class AddItem extends AppCompatActivity {
             itemTitle.setError("Title cannot be empty");
             isValid = false;
         }
-        //if(date.getText().toString().isEmpty()) {
-            //date.setError("Date cannot be empty");
-           // isValid = false;
-       // }
         if(!categoryChoice.isSelected()) {
             categoryChoice.setSelection(0);
         }
@@ -334,7 +323,6 @@ public class AddItem extends AppCompatActivity {
                 month = month +1;
                 String date = makeDateString(dayOfMonth,month,year);
                 dateButton.setText(date);
-
             }
         };
 
@@ -357,6 +345,5 @@ public class AddItem extends AppCompatActivity {
     public void openDate(View view)
     {
         datePickerDialog.show();
-
     }
 }
