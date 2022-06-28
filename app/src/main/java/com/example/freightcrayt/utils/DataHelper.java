@@ -244,8 +244,8 @@ public class DataHelper {
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         final boolean[] res = {true};
 
-        DatabaseReference userRef = db.getReference("CollectionCollaborations").child(collectionID).push();
-        userRef.setValue(userID, new DatabaseReference.CompletionListener() {
+        DatabaseReference userRef = db.getReference("CollectionCollaborations").child(collectionID).child(userID);
+        userRef.setValue(true, new DatabaseReference.CompletionListener() {
             @Override
             public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
                 if(error != null) {

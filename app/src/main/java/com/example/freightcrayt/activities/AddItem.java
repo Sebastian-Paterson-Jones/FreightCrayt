@@ -104,7 +104,9 @@ public class AddItem extends AppCompatActivity {
             FirebaseDatabase db = FirebaseDatabase.getInstance();
             DatabaseReference userCollectionsRef = db.getReference("UserCategories");
             DatabaseReference collectionsRef = db.getReference("Categories");
+            DatabaseReference collaborationsRef = db.getReference("CollectionCollaborations");
 
+            // get user categories
             userCollectionsRef.child(DataHelper.getUserID()).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -132,6 +134,44 @@ public class AddItem extends AppCompatActivity {
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
                     Toast.makeText(AddItem.this, "failed to retrieve collections", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+
+            // get user collaborations they are invited to
+            collaborationsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    for(DataSnapshot snap : snapshot.getChildren()) {
+                        String collectionID = snap.getKey();
+                        if(collectionID != null) {
+                            Boolean isUser = snap.child(DataHelper.getUserID()).getValue(Boolean.class);
+                            if(isUser != null) {
+                                if(isUser) {
+                                    collectionsRef.child(collectionID).addValueEventListener(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                            Collection collection = snapshot.getValue(Collection.class);
+                                            if(collection != null) {
+                                                items.add(collection);
+                                                refreshAdapter(items);
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
+                                            Toast.makeText(AddItem.this, "failed to retrieve collections", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                                }
+                            }
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
                 }
             });
         }
