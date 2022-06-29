@@ -82,13 +82,6 @@ public class AddItem extends AppCompatActivity {
             }
         }, intentFilter);
 
-        // set the collection details
-        this.collectionID = getIntent().getExtras().getString("collectionID");
-        this.collectionTitle = getIntent().getExtras().getString("title");
-        this.collectionDescription = getIntent().getExtras().getString("description");
-        this.collectionGoal = getIntent().getExtras().getInt("goal");
-        this.collectionSize = getIntent().getExtras().getInt("size");
-
         // init fields
         itemImage = (ImageView) findViewById(R.id.item_add_Image);
         itemTitle = (TextView) findViewById(R.id.title_textview);
@@ -251,7 +244,17 @@ public class AddItem extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
 
+        // set the collection details
+        this.collectionID = getIntent().getExtras().getString("collectionID");
+        this.collectionTitle = getIntent().getExtras().getString("title");
+        this.collectionDescription = getIntent().getExtras().getString("description");
+        this.collectionGoal = getIntent().getExtras().getInt("goal");
+        this.collectionSize = getIntent().getExtras().getInt("size");
+    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode,
