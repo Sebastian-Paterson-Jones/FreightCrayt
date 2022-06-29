@@ -31,6 +31,21 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <FrameLayout
+        android:id="@+id/collaboration_loading_progress_container"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
+
+        <ProgressBar
+            android:id="@+id/list_progress_indicator"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </FrameLayout>
+
     <ListView
         android:id="@+id/personal_collaborationsListView"
         android:layout_width="match_parent"

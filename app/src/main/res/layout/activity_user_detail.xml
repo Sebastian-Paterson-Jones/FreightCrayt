@@ -57,47 +57,15 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/linearLayout2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout">
-
-            <Button
-                android:id="@+id/user_btnUpdate"
-                android:layout_width="25dp"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="25dp"
-                android:layout_weight="1"
-                android:background="@drawable/rounded_button"
-                android:maxWidth="250px"
-                android:text="@string/update_button" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/user_btnDelete"
-                android:layout_width="25dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_weight="1"
-                android:background="@drawable/discard_button"
-                android:maxWidth="250px"
-                android:text="@string/delete_button" />
-        </LinearLayout>
-
         <View
             android:id="@+id/user_lineBreak"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="32dp"
             android:background="@color/containerColor"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
         <TextView
             android:id="@+id/user_totalCrateHeader"

@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -47,6 +48,7 @@ public class personalCategory extends Fragment {
 
     // fields
     ListView categoriesList;
+    FrameLayout loadingContainer;
 
     // assign parent view;
     View view;
@@ -145,6 +147,7 @@ public class personalCategory extends Fragment {
                         }
                     });
                 }
+                hideLoadingState();
             }
 
             @Override
@@ -159,6 +162,12 @@ public class personalCategory extends Fragment {
         // assign adapter to listview
         categoriesList = (ListView) view.findViewById(R.id.personal_catergoriesListView);
         categoriesList.setAdapter(itemListAdapter);
+
+        // get loading state
+        loadingContainer = (FrameLayout) view.findViewById(R.id.personal_loading_progress_container);
+
+        // hide respective views
+        this.showLoadingSate();
 
         // get the search box
         TextInputEditText searchBox = (TextInputEditText) view.findViewById(R.id.personalCategory_txtBoxSearch);
@@ -195,5 +204,15 @@ public class personalCategory extends Fragment {
                 return;
             }
         }
+    }
+
+    private void showLoadingSate() {
+        loadingContainer.setVisibility(View.VISIBLE);
+        categoriesList.setVisibility(View.GONE);
+    }
+
+    private void hideLoadingState() {
+        loadingContainer.setVisibility(View.GONE);
+        categoriesList.setVisibility(View.VISIBLE);
     }
 }

@@ -14,6 +14,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -60,11 +61,11 @@ public class CategoryDetail extends AppCompatActivity {
     private ImageView addNewItemButton;
     private ImageView backButton;
 
-    // dataHelper instance
-    DataHelper data;
-
     // grid
     GridView grid;
+
+    // loading container
+    private FrameLayout loadingContainer;
 
     // items array
     private ArrayList<CollectionItem> items;
@@ -108,6 +109,10 @@ public class CategoryDetail extends AppCompatActivity {
         bottomNav = (BottomAppBar) findViewById(R.id.bottom_nav_bar);
         addItemButton = (FloatingActionButton) findViewById(R.id.bottom_nav_addItem);
         accountNav = (ActionMenuItemView) findViewById(R.id.bottomNavPerson);
+        loadingContainer = (FrameLayout) findViewById(R.id.category_detail_loading_progress_container);
+
+        // set loading
+        showLoadingSate();
 
         // Set the header text
         categoryTitle.setText(this.collectionTitle);
@@ -129,6 +134,7 @@ public class CategoryDetail extends AppCompatActivity {
                 if(item != null) {
                     items.add(item);
                     refreshAdapter(items);
+                    hideLoadingState();
                 }
             }
 
@@ -158,6 +164,17 @@ public class CategoryDetail extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Toast.makeText(CategoryDetail.this, "Item updates canceled", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        itemsRef.orderByChild("collectionID").equalTo(this.collectionID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                hideLoadingState();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
             }
         });
 
@@ -229,5 +246,15 @@ public class CategoryDetail extends AppCompatActivity {
                 return;
             }
         }
+    }
+
+    private void showLoadingSate() {
+        loadingContainer.setVisibility(View.VISIBLE);
+        grid.setVisibility(View.GONE);
+    }
+
+    private void hideLoadingState() {
+        loadingContainer.setVisibility(View.GONE);
+        grid.setVisibility(View.VISIBLE);
     }
 }

@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -37,6 +38,7 @@ public class collaborationCategory extends Fragment {
 
     // fields
     ListView categoriesList;
+    FrameLayout loadingContainer;
 
     // assign parent view;
     View view;
@@ -71,6 +73,38 @@ public class collaborationCategory extends Fragment {
         userCollectionsRef = db.getReference("UserCategories");
         collectionsRef = db.getReference("Categories");
         collaborationsRef = db.getReference("CollectionCollaborations");
+
+        // adapter init
+        itemListAdapter = new CategoryListAdapter(getContext(), collaborationCollections);
+
+        // assign adapter to listview
+        categoriesList = (ListView) view.findViewById(R.id.personal_collaborationsListView);
+        categoriesList.setAdapter(itemListAdapter);
+
+        // get loading state
+        loadingContainer = (FrameLayout) view.findViewById(R.id.collaboration_loading_progress_container);
+
+        // hide respective views
+        this.showLoadingSate();
+
+        // get the search box
+        TextInputEditText searchBox = (TextInputEditText) view.findViewById(R.id.collaborationsCategory_txtBoxSearch);
+
+        // set event listener for search box filtering
+        searchBox.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                itemListAdapter.getFilter().filter(searchBox.getText());
+            }
+        });
 
         // listener for user collaborations they own
         userCollectionsRef.child(DataHelper.getUserID()).addValueEventListener(new ValueEventListener() {
@@ -136,37 +170,13 @@ public class collaborationCategory extends Fragment {
                         }
                     }
                 }
+
+                hideLoadingState();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-        });
-
-        // adapter init
-        itemListAdapter = new CategoryListAdapter(getContext(), collaborationCollections);
-
-        // assign adapter to listview
-        categoriesList = (ListView) view.findViewById(R.id.personal_collaborationsListView);
-        categoriesList.setAdapter(itemListAdapter);
-
-        // get the search box
-        TextInputEditText searchBox = (TextInputEditText) view.findViewById(R.id.collaborationsCategory_txtBoxSearch);
-
-        // set event listener for search box filtering
-        searchBox.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                itemListAdapter.getFilter().filter(searchBox.getText());
             }
         });
 
@@ -186,5 +196,15 @@ public class collaborationCategory extends Fragment {
                 return;
             }
         }
+    }
+
+    private void showLoadingSate() {
+        loadingContainer.setVisibility(View.VISIBLE);
+        categoriesList.setVisibility(View.GONE);
+    }
+
+    private void hideLoadingState() {
+        loadingContainer.setVisibility(View.GONE);
+        categoriesList.setVisibility(View.VISIBLE);
     }
 }

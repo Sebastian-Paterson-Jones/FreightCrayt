@@ -1,11 +1,14 @@
 package com.example.freightcrayt.adapters;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -14,6 +17,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.freightcrayt.activities.AddItem;
 import com.example.freightcrayt.activities.CategoryDetail;
 import com.example.freightcrayt.activities.MainActivity;
 import com.example.freightcrayt.models.Collection;
@@ -21,6 +25,7 @@ import com.example.freightcrayt.R;
 import com.example.freightcrayt.utils.DataHelper;
 import com.example.freightcrayt.utils.IntentHelper;
 import com.google.android.material.button.MaterialButton;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -47,14 +52,24 @@ public class CategoryListAdapter extends ArrayAdapter<Collection> {
         TextView collectionTitle = (TextView) convertView.findViewById(R.id.personal_collectionItemTitle);
         TextView collectionCount = (TextView) convertView.findViewById(R.id.personal_collectionItemCount);
         MaterialButton shareButton = (MaterialButton) convertView.findViewById(R.id.personal_collectionItemShare);
-        MaterialButton editButton = (MaterialButton) convertView.findViewById(R.id.personal_collectionItemEdit);
+        MaterialButton deleteButton = (MaterialButton) convertView.findViewById(R.id.personal_collectionItemDelete);
         LinearLayout container = (LinearLayout) convertView.findViewById(R.id.personal_listContainer);
-
-        // default image cuz items don't have images as of yet
-        collectionImage.setImageResource(R.drawable.ic_baseline_person_24);
+        FrameLayout itemCountGraphic = (FrameLayout) convertView.findViewById(R.id.personal_itemCountDisplay);
 
         // set the title
         collectionTitle.setText(item.getTitle());
+
+        // set item count graphic
+        ViewGroup.LayoutParams layoutParams = itemCountGraphic.getLayoutParams();
+        if (item.getSize() > item.getGoal()) {
+            layoutParams.width = 125;
+            itemCountGraphic.setLayoutParams(layoutParams);
+        } else {
+            if (item.getGoal() > 0) {
+                layoutParams.width = 125*item.getSize()/item.getGoal();
+                itemCountGraphic.setLayoutParams(layoutParams);
+            }
+        }
 
         // set num items
         collectionCount.setText(String.valueOf(item.getSize()) + " of " + String.valueOf(item.getGoal()));
@@ -69,11 +84,29 @@ public class CategoryListAdapter extends ArrayAdapter<Collection> {
             }
         });
 
-        // TODO: set redirect to category edit activity
-        editButton.setOnClickListener(new View.OnClickListener() {
+        // dialog listener for delete yes no option box
+        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which){
+                    case DialogInterface.BUTTON_POSITIVE:
+                        DataHelper.removeCategory(item.getCollectionID());
+                        break;
+
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        break;
+                }
+            }
+        };
+
+        deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "Redirect to edit category activity", Toast.LENGTH_LONG).show();
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setMessage("Are you sure you want to delete this category?")
+                        .setPositiveButton("Yes", dialogClickListener)
+                        .setNegativeButton("No", dialogClickListener);
+                builder.show();
             }
         });
 

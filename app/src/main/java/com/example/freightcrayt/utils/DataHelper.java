@@ -2,6 +2,7 @@ package com.example.freightcrayt.utils;
 
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,6 +14,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -23,6 +25,8 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicMarkableReference;
 
 public class DataHelper {
 
@@ -80,16 +84,22 @@ public class DataHelper {
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         final boolean[] res = {true};
 
-        DatabaseReference categoryRef = db.getReference("Categories");
-        categoryRef.child(collectionID).addListenerForSingleValueEvent(new ValueEventListener() {
+        DatabaseReference collaborationsRef = db.getReference("CollectionCollaborations").child(collectionID);
+        collaborationsRef.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                snapshot.getRef().removeValue();
-            }
+            public void onComplete(@NonNull Task<Void> task) {
+                DatabaseReference categoryRef = db.getReference("Categories");
+                categoryRef.child(collectionID).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        snapshot.getRef().removeValue();
+                    }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                res[0] = false;
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        res[0] = false;
+                    }
+                });
             }
         });
 
@@ -200,26 +210,40 @@ public class DataHelper {
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         final boolean[] res = {true};
 
-        removeFirebaseImage(imageURL, itemID).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful()) {
-                    DatabaseReference itemsRef = db.getReference("Items");
-                    itemsRef.child(itemID).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if(task.isSuccessful()) {
-                                decrementCollectionSize(collectionID, collectionSize);
-                            } else {
-                                res[0] = false;
+        if (imageURL != null) {
+            removeFirebaseImage(imageURL, itemID).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if(task.isSuccessful()) {
+                        DatabaseReference itemsRef = db.getReference("Items");
+                        itemsRef.child(itemID).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if(task.isSuccessful()) {
+                                    decrementCollectionSize(collectionID, collectionSize);
+                                } else {
+                                    res[0] = false;
+                                }
                             }
-                        }
-                    });
-                } else {
-                    res[0] = false;
+                        });
+                    } else {
+                        res[0] = false;
+                    }
                 }
-            }
-        });
+            });
+        } else {
+            DatabaseReference itemsRef = db.getReference("Items");
+            itemsRef.child(itemID).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if(task.isSuccessful()) {
+                        decrementCollectionSize(collectionID, collectionSize);
+                    } else {
+                        res[0] = false;
+                    }
+                }
+            });
+        }
 
         return res[0];
     }
