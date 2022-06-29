@@ -107,8 +107,8 @@ public class Analytics extends AppCompatActivity {
         //set fields
         this.backButton = (ImageView) findViewById(R.id.analytics_backButton);
 
+        //set bar chart and data set
         BarChart barChart = findViewById(R.id.barchart);
-        //GetAnalytics();
         BarDataSet barDataSet = new BarDataSet(barArrayList, "Categories");
         BarData barData = new BarData(barDataSet);
         barChart.setData(barData);
