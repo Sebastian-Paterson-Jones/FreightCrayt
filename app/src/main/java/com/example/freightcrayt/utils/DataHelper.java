@@ -84,16 +84,22 @@ public class DataHelper {
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         final boolean[] res = {true};
 
-        DatabaseReference categoryRef = db.getReference("Categories");
-        categoryRef.child(collectionID).addListenerForSingleValueEvent(new ValueEventListener() {
+        DatabaseReference collaborationsRef = db.getReference("CollectionCollaborations").child(collectionID);
+        collaborationsRef.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                snapshot.getRef().removeValue();
-            }
+            public void onComplete(@NonNull Task<Void> task) {
+                DatabaseReference categoryRef = db.getReference("Categories");
+                categoryRef.child(collectionID).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        snapshot.getRef().removeValue();
+                    }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                res[0] = false;
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        res[0] = false;
+                    }
+                });
             }
         });
 
@@ -204,26 +210,40 @@ public class DataHelper {
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         final boolean[] res = {true};
 
-        removeFirebaseImage(imageURL, itemID).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful()) {
-                    DatabaseReference itemsRef = db.getReference("Items");
-                    itemsRef.child(itemID).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if(task.isSuccessful()) {
-                                decrementCollectionSize(collectionID, collectionSize);
-                            } else {
-                                res[0] = false;
+        if (imageURL != null) {
+            removeFirebaseImage(imageURL, itemID).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if(task.isSuccessful()) {
+                        DatabaseReference itemsRef = db.getReference("Items");
+                        itemsRef.child(itemID).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if(task.isSuccessful()) {
+                                    decrementCollectionSize(collectionID, collectionSize);
+                                } else {
+                                    res[0] = false;
+                                }
                             }
-                        }
-                    });
-                } else {
-                    res[0] = false;
+                        });
+                    } else {
+                        res[0] = false;
+                    }
                 }
-            }
-        });
+            });
+        } else {
+            DatabaseReference itemsRef = db.getReference("Items");
+            itemsRef.child(itemID).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if(task.isSuccessful()) {
+                        decrementCollectionSize(collectionID, collectionSize);
+                    } else {
+                        res[0] = false;
+                    }
+                }
+            });
+        }
 
         return res[0];
     }

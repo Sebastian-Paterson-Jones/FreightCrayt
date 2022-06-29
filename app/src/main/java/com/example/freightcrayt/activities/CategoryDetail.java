@@ -167,6 +167,17 @@ public class CategoryDetail extends AppCompatActivity {
             }
         });
 
+        itemsRef.orderByChild("collectionID").equalTo(this.collectionID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                hideLoadingState();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+
         // set event listener for search box filtering
         searchBox.addTextChangedListener(new TextWatcher() {
             @Override

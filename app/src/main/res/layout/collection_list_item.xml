@@ -57,6 +57,21 @@
                 android:maxWidth="170dp"
                 android:textSize="16sp">
             </TextView>
+
+            <FrameLayout
+                android:layout_width="125dp"
+                android:layout_height="7dp"
+                android:background="@drawable/rounded_button"
+                android:backgroundTint="#C8C8C8">
+                <FrameLayout
+                    android:id="@+id/personal_itemCountDisplay"
+                    android:layout_width="0dp"
+                    android:layout_height="7dp"
+                    android:background="@drawable/rounded_button"
+                    android:backgroundTint="?colorPrimary">
+
+                </FrameLayout>
+            </FrameLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -103,7 +118,7 @@
                 android:orientation="vertical">
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/personal_collectionItemEdit"
+                    android:id="@+id/personal_collectionItemDelete"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:background="@drawable/circle_image"
@@ -111,16 +126,16 @@
                     android:insetTop="0dp"
                     android:insetRight="0dp"
                     android:insetBottom="0dp"
-                    app:icon="@drawable/ic_baseline_edit_24"
+                    app:icon="@drawable/ic_outline_delete_24"
                     app:iconGravity="textStart"
                     app:iconPadding="0dp"
                     app:iconSize="15dp"
-                    app:iconTint="?colorTertiary" />
+                    app:iconTint="?colorError" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Edit"
+                    android:text="Delete"
                     android:textSize="12sp" />
             </LinearLayout>
 

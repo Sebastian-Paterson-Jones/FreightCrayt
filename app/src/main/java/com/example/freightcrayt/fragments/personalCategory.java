@@ -78,38 +78,6 @@ public class personalCategory extends Fragment {
         // set collections list
         collections = new ArrayList<Collection>();
 
-        // adapter init
-        itemListAdapter = new CategoryListAdapter(getContext(), collections);
-
-        // assign adapter to listview
-        categoriesList = (ListView) view.findViewById(R.id.personal_catergoriesListView);
-        categoriesList.setAdapter(itemListAdapter);
-
-        // get loading state
-        loadingContainer = (FrameLayout) view.findViewById(R.id.personal_loading_progress_container);
-
-        // hide respective views
-        this.showLoadingSate();
-
-        // get the search box
-        TextInputEditText searchBox = (TextInputEditText) view.findViewById(R.id.personalCategory_txtBoxSearch);
-
-        // set event listener for search box filtering
-        searchBox.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                itemListAdapter.getFilter().filter(searchBox.getText());
-            }
-        });
-
         // retrieve user collections
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         userCollectionsRef = db.getReference("UserCategories");
@@ -185,6 +153,38 @@ public class personalCategory extends Fragment {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Toast.makeText(getContext(), "failed to retrieve collections", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // adapter init
+        itemListAdapter = new CategoryListAdapter(getContext(), collections);
+
+        // assign adapter to listview
+        categoriesList = (ListView) view.findViewById(R.id.personal_catergoriesListView);
+        categoriesList.setAdapter(itemListAdapter);
+
+        // get loading state
+        loadingContainer = (FrameLayout) view.findViewById(R.id.personal_loading_progress_container);
+
+        // hide respective views
+        this.showLoadingSate();
+
+        // get the search box
+        TextInputEditText searchBox = (TextInputEditText) view.findViewById(R.id.personalCategory_txtBoxSearch);
+
+        // set event listener for search box filtering
+        searchBox.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                itemListAdapter.getFilter().filter(searchBox.getText());
             }
         });
 
