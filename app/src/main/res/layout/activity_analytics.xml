@@ -58,39 +58,17 @@
         android:paddingLeft="25dp"
         android:paddingTop="50dp"
         android:paddingRight="25dp"
-        app:layout_constraintBottom_toTopOf="@id/analytics_bottomNav"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-    <com.github.mikephil.charting.charts.BarChart
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/barchart"/>
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/barchart"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp" />
 
     </RelativeLayout>
-
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/analytics_bottomNav"
-        android:name="com.example.freightcrayt.fragments.BottomNav"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" /><![CDATA[
-
-
-        android:id="@+id/coordinatorLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-
-
-
-
-    ]]>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
