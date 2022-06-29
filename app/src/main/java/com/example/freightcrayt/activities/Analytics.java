@@ -76,17 +76,13 @@ public class Analytics extends AppCompatActivity {
                    collectionsRef.child(collectionID).addValueEventListener(new ValueEventListener() {
                        @Override
                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                           int i = 0;
                            Collection collection = snapshot.getValue(Collection.class);
                            if (collection != null) {
                                removeListCategoryByID(collection.getCollectionID());
                                collections.add(collection);
-                               refreshAdapter(collections);
-
-                               // Adding collections to the barchart
-                               for (int i = 0; i < collections.size(); i++) {
-                                   barArrayList.add(new BarEntry(i, collections.get(i).getSize()));
-                                   labelsArrayList.add(collections.get(i).getTitle());
-                               }
+                               barArrayList.add(new BarEntry(i, collections.get(i).getSize()));
+                               i++;
                            }
                        }
 
@@ -108,6 +104,10 @@ public class Analytics extends AppCompatActivity {
         this.backButton = (ImageView) findViewById(R.id.analytics_backButton);
 
         //set bar chart and data set
+        barArrayList.add(new BarEntry(1f, 50));
+        barArrayList.add(new BarEntry(2f, 35));
+        barArrayList.add(new BarEntry(3f, 40));
+        barArrayList.add(new BarEntry(4f, 15));
         BarChart barChart = findViewById(R.id.barchart);
         BarDataSet barDataSet = new BarDataSet(barArrayList, "Categories");
         BarData barData = new BarData(barDataSet);
@@ -132,18 +132,13 @@ public class Analytics extends AppCompatActivity {
         });
     }
 
-    private void refreshAdapter(ArrayList<Collection> ArrayList) {
-        // adapter init
-        itemListAdapter = new CategoryListAdapter(Analytics.this, collections);
-        //categoriesList.setAdapter(itemListAdapter);
-    }
-
     private void removeListCategoryByID(String collectionID) {
-        /*for(Collection item : collections) {
+        collections = new ArrayList<>();
+        for(Collection item : collections) {
             if(collectionID.equals(item.getCollectionID())) {
                 collections.remove(item);
                 return;
             }
-        }*/
+        }
     }
 }
