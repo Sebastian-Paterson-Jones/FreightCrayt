@@ -131,16 +131,6 @@ public class Analytics extends AppCompatActivity {
             }
         });
     }
-    // get the analytics for the collection
-    /*public void GetAnalytics() {
-
-        barArrayList.add(new BarEntry(0, 90));
-        barArrayList.add(new BarEntry(2f, 12));
-        for (int i = 0; i < collections.size(); i++) {
-            barArrayList.add(new BarEntry(i, collections.get(i).getSize()));
-            labelsArrayList.add(collections.get(i).getTitle());
-        }
-    }*/
 
     private void refreshAdapter(ArrayList<Collection> ArrayList) {
         // adapter init

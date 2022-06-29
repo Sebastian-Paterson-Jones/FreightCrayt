@@ -49,6 +49,7 @@ public class UserDetail extends AppCompatActivity {
     private TextView totalCrates;
     private TextView totalItems;
     private Button signOut;
+    private Button analyticsButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +73,7 @@ public class UserDetail extends AppCompatActivity {
         totalCrates = (TextView) findViewById(R.id.user_totalCrates);
         totalItems = (TextView) findViewById(R.id.user_totalItems);
         signOut = (Button) findViewById(R.id.user_signOut);
+        analyticsButton = (Button) findViewById(R.id.user_analytics);
         bottomNav = (BottomAppBar) findViewById(R.id.bottom_nav_bar);
         addItemButton = (FloatingActionButton) findViewById(R.id.bottom_nav_addItem);
 
@@ -238,6 +240,12 @@ public class UserDetail extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 IntentHelper.openIntent(UserDetail.this, "addNew", add_new.class);
+            }
+        });
+        analyticsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                IntentHelper.openIntent(UserDetail.this, "Analytics", Analytics.class);
             }
         });
         bottomNav.setNavigationOnClickListener(new View.OnClickListener() {

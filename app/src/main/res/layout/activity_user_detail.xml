@@ -160,7 +160,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/rounded_button"
                 android:maxWidth="250px"
-                android:text="analytics" />
+                android:text="@string/analytics_btn" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/user_signOut"
