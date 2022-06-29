@@ -39,6 +39,10 @@ import java.util.ArrayList;
 
 public class UserDetail extends AppCompatActivity {
 
+    // list for collections
+    ArrayList<Collection> collections;
+    int itemCount;
+
     // bottom nav functionality
     private BottomAppBar bottomNav;
     private FloatingActionButton addItemButton;
@@ -83,8 +87,8 @@ public class UserDetail extends AppCompatActivity {
         userName.setText(DataHelper.getUsername());
 
         // firebase listeners for total counts
-        ArrayList<Collection> collections = new ArrayList<Collection>();
-        final int[] collectionItemsCounts = {0};
+        collections = new ArrayList<Collection>();
+        itemCount = 0;
 
         // retrieve user collections
         FirebaseDatabase db = FirebaseDatabase.getInstance();
@@ -106,8 +110,7 @@ public class UserDetail extends AppCompatActivity {
                         public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                             Collection collection = snapshot.child(collectionID).getValue(Collection.class);
                             if(collection != null) {
-                                collections.add(collection);
-                                totalCrates.setText(collections.size() + " crates");
+                                addCraytToCollection(collection);
                             }
                         }
 
@@ -119,8 +122,7 @@ public class UserDetail extends AppCompatActivity {
                         public void onChildRemoved(@NonNull DataSnapshot snapshot) {
                             Collection collection = snapshot.child(collectionID).getValue(Collection.class);
                             if(collection != null) {
-                                collections.remove(collection);
-                                totalCrates.setText(collections.size() + " crates");
+                                removeCraytFromCollection(collection);
                             }
                         }
 
@@ -157,8 +159,7 @@ public class UserDetail extends AppCompatActivity {
                                     public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                                         Collection collection = snapshot.child(collectionID).getValue(Collection.class);
                                         if(collection != null) {
-                                            collections.add(collection);
-                                            totalCrates.setText(collections.size() + " crates");
+                                            addCraytToCollection(collection);
                                         }
                                     }
 
@@ -171,8 +172,33 @@ public class UserDetail extends AppCompatActivity {
                                     public void onChildRemoved(@NonNull DataSnapshot snapshot) {
                                         Collection collection = snapshot.child(collectionID).getValue(Collection.class);
                                         if(collection != null) {
-                                            collections.remove(collection);
-                                            totalCrates.setText(collections.size() + " crates");
+                                            removeCraytFromCollection(collection);
+
+                                            itemsReference.orderByChild("collectionID").equalTo(collection.getCollectionID()).addChildEventListener(new ChildEventListener() {
+                                                @Override
+                                                public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                                                    addCraytToCollection(collection);
+                                                }
+
+                                                @Override
+                                                public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                                                }
+
+                                                @Override
+                                                public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+                                                    removeCraytFromCollection(collection);
+                                                }
+
+                                                @Override
+                                                public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                                                }
+
+                                                @Override
+                                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                                }
+                                            });
                                         }
                                     }
 
@@ -197,37 +223,6 @@ public class UserDetail extends AppCompatActivity {
 
             }
         });
-
-        // get user items
-        for(Collection collection : collections) {
-            itemsReference.orderByChild("collectionID").equalTo(collection.getCollectionID()).addChildEventListener(new ChildEventListener() {
-                @Override
-                public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                    collectionItemsCounts[0]++;
-                    totalItems.setText(collectionItemsCounts[0] + " items");
-                }
-
-                @Override
-                public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                }
-
-                @Override
-                public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-                    collectionItemsCounts[0]--;
-                    totalItems.setText(collectionItemsCounts[0] + " items");
-                }
-
-                @Override
-                public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
-        }
 
         signOut.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -254,5 +249,15 @@ public class UserDetail extends AppCompatActivity {
                 IntentHelper.openIntent(UserDetail.this, "Home", MainActivity.class);
             }
         });
+    }
+
+    private void addCraytToCollection(Collection collection) {
+        collections.add(collection);
+        totalCrates.setText(collections.size() + " crates");
+    }
+
+    private void removeCraytFromCollection(Collection collection) {
+        collections.remove(collection);
+        totalCrates.setText(collections.size() + " crates");
     }
 }
