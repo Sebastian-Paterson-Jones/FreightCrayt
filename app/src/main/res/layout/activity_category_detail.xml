@@ -88,6 +88,20 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <FrameLayout
+            android:id="@+id/category_detail_loading_progress_container"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
+            <ProgressBar
+                android:id="@+id/list_progress_indicator"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </FrameLayout>
+
         <GridView
             android:id="@+id/category_detail_grid"
             android:layout_width="match_parent"
